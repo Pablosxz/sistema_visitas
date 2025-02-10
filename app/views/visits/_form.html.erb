@@ -1,0 +1,42 @@
+<%= form_with(model: visit) do |form| %>
+  <% if visit.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(visit.errors.count, "error") %> prohibited this visit from being saved:</h2>
+
+      <ul>
+        <% visit.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :visitor_id, style: "display: block" %>
+    <%= form.text_field :visitor_id %>
+  </div>
+
+  <div>
+    <%= form.label :sector_id, style: "display: block" %>
+    <%= form.text_field :sector_id %>
+  </div>
+
+  <div>
+    <%= form.label :employee_id, style: "display: block" %>
+    <%= form.text_field :employee_id %>
+  </div>
+
+  <div>
+    <%= form.label :visit_time, style: "display: block" %>
+    <%= form.datetime_field :visit_time %>
+  </div>
+
+  <div>
+    <%= form.label :unit_id, style: "display: block" %>
+    <%= form.text_field :unit_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

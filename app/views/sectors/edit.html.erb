@@ -1,0 +1,12 @@
+<% content_for :title, "Editing sector" %>
+
+<h1>Editing sector</h1>
+
+<%= render "form", sector: @sector %>
+
+<br>
+
+<div>
+  <%= link_to "Show this sector", @sector %> |
+  <%= link_to "Back to sectors", sectors_path %>
+</div>

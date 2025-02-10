@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Sectors" %>
+
+<h1>Sectors</h1>
+
+<div id="sectors">
+  <% @sectors.each do |sector| %>
+    <%= render sector %>
+    <p>
+      <%= link_to "Show this sector", sector %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New sector", new_sector_path %>

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  visitor: one
+  sector: one
+  employee: one
+  visit_time: 2025-02-10 15:30:53
+  unit: one
+
+two:
+  visitor: two
+  sector: two
+  employee: two
+  visit_time: 2025-02-10 15:30:53
+  unit: two

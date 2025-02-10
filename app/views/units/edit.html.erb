@@ -1,0 +1,12 @@
+<% content_for :title, "Editing unit" %>
+
+<h1>Editing unit</h1>
+
+<%= render "form", unit: @unit %>
+
+<br>
+
+<div>
+  <%= link_to "Show this unit", @unit %> |
+  <%= link_to "Back to units", units_path %>
+</div>
