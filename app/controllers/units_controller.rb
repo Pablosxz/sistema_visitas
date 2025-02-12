@@ -1,7 +1,8 @@
 class UnitsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_unit, only: %i[ show edit update destroy ]
-
+  load_and_authorize_resource
+  
   # GET /units or /units.json
   def index
     @units = Unit.all

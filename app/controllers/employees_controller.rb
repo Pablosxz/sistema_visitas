@@ -1,7 +1,8 @@
 class EmployeesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_employee, only: %i[ show edit update destroy ]
-
+  load_and_authorize_resource
+  
   # GET /employees or /employees.json
   def index
     @employees = Employee.all

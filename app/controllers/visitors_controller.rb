@@ -1,7 +1,8 @@
 class VisitorsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_visitor, only: %i[ show edit update destroy ]
-
+  load_and_authorize_resource
+  
   # GET /visitors or /visitors.json
   def index
     @visitors = Visitor.all
