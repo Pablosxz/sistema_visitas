@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     root 'visits#index', as: :authenticated_root
   end
   
-  root 'devise/sessions#new'  # Página de login como root padrão
+  devise_scope :user do
+    root to: 'devise/sessions#new' # Página de login como root padrão
+  end
 
   resources :visits
   resources :visitors
