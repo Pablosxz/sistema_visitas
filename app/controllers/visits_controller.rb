@@ -3,6 +3,16 @@ class VisitsController < ApplicationController
   before_action :set_visit, only: %i[ show edit update destroy ]
   load_and_authorize_resource
   
+  # Confirmar visita
+  def confirm
+    if current_user.employee? && @visit.employee == current_user.employee
+      @visit.confirm!
+      redirect_to visits_path, notice: "Visita confirmada com sucesso."
+    else
+      redirect_to visits_path, alert: "Você não tem permissão para confirmar esta visita."
+    end
+  end
+
   # GET /visits or /visits.json
   def index
     @visits = Visit.all

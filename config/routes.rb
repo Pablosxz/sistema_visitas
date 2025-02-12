@@ -8,6 +8,13 @@ Rails.application.routes.draw do
     root to: 'devise/sessions#new' # Página de login como root padrão
   end
 
+  # Permite a confirmação de visitas apenas por funcionários (Patch)
+  resources :visits do
+    member do
+      patch :confirm
+    end
+  end
+
   resources :visits
   resources :visitors
   resources :employees
