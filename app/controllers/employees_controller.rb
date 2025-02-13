@@ -5,13 +5,13 @@ class EmployeesController < ApplicationController
   
   # Método para desativar o funcionário
   def deactivate
-    if @employee.deactivate!
-      redirect_to @employee, notice: 'Funcionário desativado com sucesso.'
-    else
-      redirect_to @employee, alert: 'Houve um erro ao desativar o funcionário.'
-    end
+    @employee = Employee.find(params[:id])
+    @employee.deactivate!
+    redirect_to employees_path, notice: "Funcionário desativado com sucesso."
+  rescue => e
+    redirect_to employees_path, alert: "Erro ao desativar funcionário: #{e.message}"
   end
-  
+
   # GET /employees or /employees.json
   def index
     @employees = Employee.all
