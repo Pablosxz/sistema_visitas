@@ -5,7 +5,10 @@ class Ability
     user ||= User.new  # Caso não esteja logado
 
     if user.admin?
-      can :manage, :all  # Administrador pode fazer tudo
+      can :manage, Employee
+      can :manage, Sector
+      can :manage, Unit
+      can :manage, User # Administrador pode mexer em tudo que não sejam as visitas e os visitantes
     elsif user.attendant?
       can :read, Visitor
       can :create, Visitor
