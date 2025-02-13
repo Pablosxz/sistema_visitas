@@ -6,13 +6,6 @@ admin = User.create!(
   role: :admin
 )
 
-attendant = User.create!(
-  email: "atendente1@gmail.com",
-  password: "atendente123",
-  password_confirmation: "atendente123",
-  role: :attendant
-)
-
 employee_user1 = User.create!(
   email: "funcionario1@gmail.com",
   password: "funcionario123",
@@ -30,6 +23,15 @@ employee_user2 = User.create!(
 # Criando unidades
 unit1 = Unit.create!(name: "Unidade A")
 unit2 = Unit.create!(name: "Unidade B")
+
+# Criando atendente
+attendant = User.create!(
+  email: "atendente1@gmail.com",
+  password: "atendente123",
+  password_confirmation: "atendente123",
+  role: :attendant,
+  unit: unit1
+)
 
 # Criando setores
 sector1 = Sector.create!(name: "RH", unit: unit1)
