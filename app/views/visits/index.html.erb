@@ -4,13 +4,30 @@
 
 <h1>Visits</h1>
 
-<div id="visits">
-  <% @visits.each do |visit| %>
-    <%= render visit %>
-    <p>
-      <%= link_to "Show this visit", visit %>
-    </p>
-  <% end %>
-</div>
+<% @visits.each do |visit| %>
+  <tr>
+    <td>Nome:
+    <%= visit.visitor.name %>  
+    </td>
+    <td>Setor:
+    <%= visit.sector.name %>  
+    </td>
+    <td>Funcionário:
+    <%= visit.employee.name if visit.employee %>  
+    </td>
+    <td>Horário:
+    <%= visit.visit_time %>  
+    </td>
+    <td>
+      <% if visit.confirmed_at.present? %>
+        ✅ Confirmada em <%= visit.confirmed_at.strftime("%d/%m/%Y %H:%M") %>
+      <% elsif can?(:confirm, visit) %>
+        <%= button_to "Confirmar Visita", confirm_visit_path(visit), method: :patch, class: "btn btn-success" %>
+      <% else %>
+        ⏳ Pendente
+      <% end %>
+    </td>
+  </tr>
+<% end %>
 
 <%= link_to "New visit", new_visit_path %>
