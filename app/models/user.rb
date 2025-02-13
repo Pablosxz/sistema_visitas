@@ -2,7 +2,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :employee, dependent: :destroy  # Um usuário tem um único funcionário
+  has_one :employee # Um usuário tem um único funcionário
 
   belongs_to :unit, optional: true  # unit_id pode ser nulo
 

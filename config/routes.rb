@@ -23,10 +23,15 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  
+
   resources :visits
   resources :visitors
-  resources :employees
+  resources :employees do
+    member do
+      patch :deactivate
+      patch :activate
+    end
+  end
   resources :sectors
   resources :units
   resources :users, except: :show  # CRUD de usuários para admin

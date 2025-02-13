@@ -3,6 +3,15 @@ class EmployeesController < ApplicationController
   before_action :set_employee, only: %i[ show edit update destroy ]
   load_and_authorize_resource
   
+  # Método para desativar o funcionário
+  def deactivate
+    if @employee.deactivate!
+      redirect_to @employee, notice: 'Funcionário desativado com sucesso.'
+    else
+      redirect_to @employee, alert: 'Houve um erro ao desativar o funcionário.'
+    end
+  end
+  
   # GET /employees or /employees.json
   def index
     @employees = Employee.all
