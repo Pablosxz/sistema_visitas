@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get "users/index"
+  get "users/new"
+  get "users/create"
+  get "users/edit"
+  get "users/update"
+  get "users/destroy"
+  
   
   authenticated :user do
     root 'visits#index', as: :authenticated_root
@@ -15,12 +22,14 @@ Rails.application.routes.draw do
     end
   end
 
+  devise_for :users
+  
   resources :visits
   resources :visitors
   resources :employees
   resources :sectors
   resources :units
-  devise_for :users
+  resources :users, except: :show  # CRUD de usuários para admin
 
   get "up" => "rails/health#show", as: :rails_health_check
 
