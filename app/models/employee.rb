@@ -9,7 +9,6 @@ class Employee < ApplicationRecord
   # Aceita atributos aninhados para o usuário
   accepts_nested_attributes_for :user
 
-
   # Validações
   validates :name, presence: true
   validates :sector_id, presence: true
