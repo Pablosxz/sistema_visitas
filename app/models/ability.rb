@@ -10,8 +10,7 @@ class Ability
       can :manage, Unit
       can :manage, User # Administrador pode mexer em tudo que não sejam as visitas e os visitantes
     elsif user.attendant?
-      can :read, Visitor
-      can :create, Visitor
+      can :manage, Visitor
       can :manage, Visit, unit_id: user.unit_id  # Só pode gerenciar visitas da sua unidade
       cannot :confirm, Visit  # Não pode confirmar visitas
     elsif user.employee?

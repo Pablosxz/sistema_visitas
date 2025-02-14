@@ -14,7 +14,7 @@
     <%= visit.sector.name %>  
     </td>
     <td>Funcionário:
-    <%= visit.employee.name if visit.employee %>  
+    <%= visit.employee.name %>  
     </td>
     <td>Horário:
     <%= visit.visit_time %>  
@@ -29,6 +29,11 @@
       <% end %>
     </td>
   </tr>
+  <% end %>
+  <% if can?(:update, visit) %>
+    <p>
+      <%= link_to "Show this visit", visit %>
+    </p>
   <% end %>
 <% end %>
 
