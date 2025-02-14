@@ -14,11 +14,33 @@
       <%= form.password_field :password_confirmation %>
     </div>
   
+    <!-- Campo para role (só é possível criar admin ou attendant) -->
     <div>
       <%= form.label :role %>
-      <%= form.select :role, User.roles.keys.map { |role| [role.humanize, role] } %>
+      <%= form.select :role, User.roles.keys.select { |role| %w[admin attendant].include?(role) }.map { |role| [role.humanize, role] }, prompt: "Selecione um papel" %>
+    </div>
+
+    <!-- Campo para unit_id (apenas se o papel for attendant) -->
+    <div id="unit_field" style="display: none;">
+      <%= form.label :unit_id %>
+      <%= form.collection_select :unit_id, Unit.active.all, :id, :name, prompt: "Selecione uma unidade" %>
     </div>
   
     <%= form.submit %>
   <% end %>
   
+<script>
+  // Mostra ou esconde o campo de unidade com base no papel selecionado
+  document.addEventListener("DOMContentLoaded", function() {
+    const roleSelect = document.querySelector("#user_role");
+    const unitField = document.querySelector("#unit_field");
+
+    roleSelect.addEventListener("change", function() {
+      if (this.value === "attendant") {
+        unitField.style.display = "block";
+      } else {
+        unitField.style.display = "none";
+      }
+    });
+  });
+</script>
