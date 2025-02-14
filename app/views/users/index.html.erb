@@ -15,7 +15,6 @@
         <td><%= user.role %></td>
         <td>
           <%= link_to "Editar", edit_user_path(user) %> |
-          <%= button_to "Excluir", user, method: :delete, data: { confirm: "Tem certeza?" } %>
         </td>
       </tr>
     <% end %>
