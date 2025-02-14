@@ -24,6 +24,7 @@ class EmployeesController < ApplicationController
   # GET /employees/new
   def new
     @employee = Employee.new
+    @employee.build_user(role: 2) # Inicializa um novo usuário associado
   end
 
   # GET /employees/1/edit
@@ -34,6 +35,12 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
 
+    if @employee.user.nil?
+      @employee.build_user
+    end
+
+    @employee.user.role = 2 # Define o papel do usuário como funcionário
+    
     respond_to do |format|
       if @employee.save
         format.html { redirect_to @employee, notice: "Employee was successfully created." }
@@ -74,8 +81,9 @@ class EmployeesController < ApplicationController
       @employee = Employee.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def employee_params
-      params.expect(employee: [ :name, :sector_id, :user_id ])
+      params.expect(employee: [ :name, :sector_id, :user_id, :active,
+      user_attributes: [:id, :email, :password, :password_confirmation] # Permite atributos aninhados para o usuário
+    ])
     end
 end

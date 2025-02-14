@@ -18,13 +18,28 @@
 
   <div>
     <%= form.label :sector_id, style: "display: block" %>
-    <%= form.text_field :sector_id %>
+    <%= form.collection_select :sector_id, Sector.active.all, :id, :name, prompt: true %>
   </div>
 
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
+  <strong>Cadastrar Usuário</strong>
+
+  <%= form.fields_for :user do |user_fields| %>
+    <div>
+      <%= user_fields.label :email %>
+      <%= user_fields.email_field :email %>
+    </div>
+
+    <div>
+      <%= user_fields.label :password %>
+      <%= user_fields.password_field :password %>
+    </div>
+
+    <div>
+      <%= user_fields.label :password_confirmation %>
+      <%= user_fields.password_field :password_confirmation %>
+    </div>
+
+  <% end %>
 
   <div>
     <%= form.submit %>

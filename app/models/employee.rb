@@ -6,6 +6,10 @@ class Employee < ApplicationRecord
   # Escopo para buscar apenas funcionários ativos
   scope :active, -> { where(active: true) }
 
+  # Aceita atributos aninhados para o usuário
+  accepts_nested_attributes_for :user
+
+
   # Validações
   validates :name, presence: true
   validates :sector_id, presence: true
