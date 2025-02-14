@@ -5,7 +5,7 @@
 <h1>Visits</h1>
 
 <% @visits.each do |visit| %>
-  <% if can?(:read, visit) %>
+  <% if can?(:read, Visit) %>
   <tr>
     <td>Nome:
     <%= visit.visitor.name %>  
@@ -30,11 +30,12 @@
     </td>
   </tr>
   <% end %>
-  <% if can?(:update, visit) %>
+  <% if can?(:update, Visit) %>
     <p>
       <%= link_to "Show this visit", visit %>
     </p>
   <% end %>
 <% end %>
-
-<%= link_to "New visit", new_visit_path %>
+<% if can?(:create, Visit) %>
+  <%= link_to "New visit", new_visit_path %>
+<% end %>

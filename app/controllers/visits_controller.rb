@@ -24,7 +24,9 @@ class VisitsController < ApplicationController
 
   # GET /visits/new
   def new
-    @visit = Visit.new
+    @visit = Visit.new(visit_time: Time.current) # Define a data/hora 
+    @sectors = Sector.where(unit_id: current_user.unit_id, active: true) # Apenas setores da unidade do atendente
+    @employees_by_sector = Employee.includes(:sector).where(sector: @sectors).group_by(&:sector_id) # Agrupa funcionários por setor
   end
 
   # GET /visits/1/edit

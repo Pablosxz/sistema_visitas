@@ -1,42 +1,48 @@
-<%= form_with(model: visit) do |form| %>
+<%= form_with(model: visit, local: true) do |form| %>
   <% if visit.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(visit.errors.count, "error") %> prohibited this visit from being saved:</h2>
-
       <ul>
-        <% visit.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% visit.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
+  <!-- Seleção do Visitante -->
   <div>
     <%= form.label :visitor_id, style: "display: block" %>
-    <%= form.text_field :visitor_id %>
+    <%= form.collection_select :visitor_id, Visitor.all, :id, :name, { prompt: "Selecione um visitante" }, { class: "select2" } %>
   </div>
 
+  <!-- Exibir a unidade como texto informativo -->
+  <div>
+    <strong>Unidade:</strong> <%= current_user.unit.name %>
+  </div>
+
+  <!-- Campo oculto para enviar a unidade correta -->
+  <%= form.hidden_field :unit_id, value: current_user.unit_id %>
+
+  <!-- Seleção do Setor (Filtrado pela Unidade) -->
   <div>
     <%= form.label :sector_id, style: "display: block" %>
-    <%= form.text_field :sector_id %>
+    <%= form.collection_select :sector_id, @sectors, :id, :name, { prompt: "Selecione um setor" }, { id: "sector_select" } %>
   </div>
 
+  <!-- Seleção do Funcionário -->
   <div>
     <%= form.label :employee_id, style: "display: block" %>
-    <%= form.text_field :employee_id %>
+    <%= form.collection_select :employee_id, @employees_by_sector.values.flatten, :id, :name, { prompt: "Selecione um funcionário" }, { class: "select2" } %>
   </div>
 
+  <!-- Data e Hora da Visita -->
   <div>
     <%= form.label :visit_time, style: "display: block" %>
-    <%= form.datetime_field :visit_time %>
+    <%= form.datetime_field :visit_time, value: @visit.visit_time %>
   </div>
 
   <div>
-    <%= form.label :unit_id, style: "display: block" %>
-    <%= form.text_field :unit_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit "Salvar Visita" %>
   </div>
 <% end %>
