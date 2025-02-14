@@ -5,7 +5,7 @@ class Unit < ApplicationRecord
 
     scope :active, -> { where(active: true) }
   
-    validates :name, presence: true
+    validates :name, presence: true, uniqueness: true
 
     # Callback para desativar os setores quando a unidade for desativada
     before_update :deactivate_sectors_and_attendants_if_inactive, if: :inactive?

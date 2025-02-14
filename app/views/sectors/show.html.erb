@@ -4,7 +4,6 @@
 
 <div>
   <%= link_to "Edit this sector", edit_sector_path(@sector) %> |
+  <%= button_to "Desativar", deactivate_sector_path(@sector), method: :patch, data: { confirm: "Tem certeza?" } if @sector.active %>
   <%= link_to "Back to sectors", sectors_path %>
-
-  <%= button_to "Destroy this sector", @sector, method: :delete %>
 </div>

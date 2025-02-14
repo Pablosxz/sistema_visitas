@@ -18,7 +18,7 @@
 
   <div>
     <%= form.label :unit_id, style: "display: block" %>
-    <%= form.text_field :unit_id %>
+    <%= form.collection_select :unit_id, Unit.active.all, :id, :name, prompt: "Selecione uma unidade" %>
   </div>
 
   <div>

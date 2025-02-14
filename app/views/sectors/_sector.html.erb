@@ -9,8 +9,4 @@
     <%= sector.unit_id %>
   </p>
 
-  <p>
-    <%= button_to "Desativar", deactivate_sector_path(sector), method: :patch, data: { confirm: "Tem certeza?" } if sector.active %>
-  </p>
-
 </div>

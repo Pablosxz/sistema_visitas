@@ -4,6 +4,7 @@
 
 <div>
   <%= link_to "Edit this unit", edit_unit_path(@unit) %> |
+  <%= button_to "Desativar", deactivate_unit_path(@unit), method: :patch, data: { confirm: "Tem certeza?" } if @unit.active %>
   <%= link_to "Back to units", units_path %>
 
 </div>
