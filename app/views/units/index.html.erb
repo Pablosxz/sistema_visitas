@@ -5,7 +5,7 @@
 <h1>Units</h1>
 
 <div id="units">
-  <% @units.each do |unit| %>
+  <% @units.active.each do |unit| %>
     <%= render unit %>
     <p>
       <%= link_to "Show this unit", unit %>

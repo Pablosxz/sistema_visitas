@@ -59,6 +59,18 @@ class UnitsController < ApplicationController
     end
   end
 
+  # PATCH /units/1/deactivate
+  def deactivate
+    @unit.deactivate!
+    redirect_to units_path, notice: "Unidade desativada com sucesso."
+  end
+
+  # PATCH /units/1/activate
+  def activate
+    @unit.activate!
+    redirect_to units_path, notice: "Unidade ativada com sucesso."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_unit
@@ -69,4 +81,5 @@ class UnitsController < ApplicationController
     def unit_params
       params.expect(unit: [ :name ])
     end
+    
 end
