@@ -6,4 +6,6 @@ class Visitor < ApplicationRecord
     validates :rg, presence: true, uniqueness: true, format: { with: /\A\d+\z/, message: "deve conter apenas números" }
     validates :phone, presence: true, format: { with: /\A\d{10,11}\z/, message: "deve ter 10 ou 11 dígitos" } # Garante que o telefone tenha 10 ou 11 dígitos numéricos
     validates :photo, presence: true
+
+    mount_uploader :photo, PhotoUploader
 end

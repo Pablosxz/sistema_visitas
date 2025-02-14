@@ -2,7 +2,6 @@
   <% if visitor.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(visitor.errors.count, "error") %> prohibited this visitor from being saved:</h2>
-
       <ul>
         <% visitor.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -33,10 +32,66 @@
 
   <div>
     <%= form.label :photo, style: "display: block" %>
-    <%= form.text_field :photo %>
+    <%= form.file_field :photo, id: "photo-upload", accept: "image/*" %>
+  </div>
+
+  <!-- Preview da câmera ao vivo -->
+  <div>
+    <video id="webcam-preview" autoplay playsinline style="width: 100%; max-width: 400px;"></video>
+  </div>
+
+  <!-- Botão para capturar foto da webcam -->
+  <div>
+    <button type="button" id="capture-photo">Capturar Foto</button>
+  </div>
+
+  <!-- Canvas para exibir a foto capturada -->
+  <div>
+    <canvas id="photo-canvas" style="display: none;"></canvas>
   </div>
 
   <div>
     <%= form.submit %>
   </div>
 <% end %>
+
+<!-- Script para capturar foto da webcam -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const video = document.getElementById("webcam-preview");
+    const canvas = document.getElementById("photo-canvas");
+    const captureButton = document.getElementById("capture-photo");
+    const photoUpload = document.getElementById("photo-upload");
+
+    // Solicita acesso à webcam
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        video.srcObject = stream;
+        video.play();
+      })
+      .catch((error) => {
+        console.error("Erro ao acessar a webcam:", error);
+        alert("Não foi possível acessar a webcam. Verifique as permissões do navegador.");
+      });
+
+    // Captura a foto
+    captureButton.addEventListener("click", () => {
+      const context = canvas.getContext("2d");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Converte a imagem do canvas para um arquivo e define no campo de upload
+      canvas.toBlob((blob) => {
+        const file = new File([blob], "webcam-photo.png", { type: "image/png" });
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        photoUpload.files = dataTransfer.files;
+
+        // Exibe a foto capturada no lugar do preview da câmera
+        video.style.display = "none";
+        canvas.style.display = "block";
+      }, "image/png");
+    });
+  });
+</script>

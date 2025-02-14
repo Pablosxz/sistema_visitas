@@ -21,7 +21,12 @@
 
   <p>
     <strong>Photo:</strong>
-    <%= visitor.photo %>
   </p>
+
+  <% if visitor.photo.present? %>
+    <%= image_tag visitor.photo.url, alt: "Foto do Visitante" %>
+  <% else %>
+    <p>Nenhuma foto disponível.</p>
+  <% end %>
 
 </div>

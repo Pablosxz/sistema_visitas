@@ -22,7 +22,7 @@ class Unit < ApplicationRecord
         update(active: true)
     end
 
-    # Método para desativar os setores associados junto com a unidade
+    # Método para desativar os setores e atendentes associados junto com a unidade
     def deactivate_sectors_and_attendants_if_inactive
         if self.sectors.present?
             ActiveRecord::Base.transaction do

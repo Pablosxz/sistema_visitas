@@ -26,7 +26,7 @@ class Employee < ApplicationRecord
     active
   end
 
-   # Método para destruir o usuário associado
+  # Método para destruir o usuário associado
   def destroy_user_if_inactive
     if self.user.present?
       ActiveRecord::Base.transaction do
