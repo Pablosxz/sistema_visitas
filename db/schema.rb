@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_13_200236) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_14_211719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -64,6 +64,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_13_200236) do
     t.string "photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: true
   end
 
   create_table "visits", force: :cascade do |t|

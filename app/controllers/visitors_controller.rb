@@ -59,6 +59,24 @@ class VisitorsController < ApplicationController
     end
   end
 
+   # PATCH /visitors/1/deactivate
+  def deactivate
+    @visitor = Visitor.find(params[:id])
+    @visitor.deactivate!
+    redirect_to visitors_path, notice: "Visitante desativado com sucesso."
+  rescue => e
+    redirect_to visitors_path, alert: "Erro ao desativar visitante: #{e.message}"
+  end
+
+  # PATCH /visitors/1/activate
+  def activate
+    @visitor = Visitor.find(params[:id])
+    @visitor.activate!
+    redirect_to visitors_path, notice: "Visitante ativado com sucesso."
+  rescue => e
+    redirect_to visitors_path, alert: "Erro ao ativar visitante: #{e.message}"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_visitor

@@ -25,7 +25,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :visits
-  resources :visitors
+  resources :visitors do
+    member do
+      patch :deactivate
+      patch :activate
+    end
+  end
 
   resources :employees do
     member do

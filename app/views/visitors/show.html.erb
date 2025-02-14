@@ -6,5 +6,6 @@
   <%= link_to "Edit this visitor", edit_visitor_path(@visitor) %> |
   <%= link_to "Back to visitors", visitors_path %>
 
-  <%= button_to "Destroy this visitor", @visitor, method: :delete %>
+  <%= button_to "Desativar este visitante", deactivate_visitor_path(@visitor), method: :patch, data: { confirm: "Tem certeza?" } if @visitor.active %>
+
 </div>

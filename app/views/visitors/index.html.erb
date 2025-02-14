@@ -5,7 +5,7 @@
 <h1>Visitors</h1>
 
 <div id="visitors">
-  <% @visitors.each do |visitor| %>
+  <% @visitors.active.each do |visitor| %>
     <%= render visitor %>
     <p>
       <%= link_to "Show this visitor", visitor %>
