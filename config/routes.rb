@@ -26,14 +26,28 @@ Rails.application.routes.draw do
 
   resources :visits
   resources :visitors
+
   resources :employees do
     member do
       patch :deactivate
       patch :activate
     end
   end
-  resources :sectors
-  resources :units
+
+  resources :sectors do 
+    member do
+      patch :deactivate
+      patch :activate
+    end
+  end
+
+  resources :units do
+    member do
+      patch :deactivate
+      patch :activate
+    end
+  end
+  
   resources :users, except: :show  # CRUD de usuários para admin
 
   get "up" => "rails/health#show", as: :rails_health_check

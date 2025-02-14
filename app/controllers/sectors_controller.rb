@@ -59,6 +59,18 @@ class SectorsController < ApplicationController
     end
   end
 
+  # PATCH /sectors/1/deactivate
+  def deactivate
+    @sector.deactivate!
+    redirect_to sectors_path, notice: "Sector was successfully deactivated."
+  end
+
+  # PATCH /sectors/1/activate
+  def activate
+    @sector.activate!
+    redirect_to sectors_path, notice: "Sector was successfully activated."
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sector

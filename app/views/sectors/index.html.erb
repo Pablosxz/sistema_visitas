@@ -5,7 +5,7 @@
 <h1>Sectors</h1>
 
 <div id="sectors">
-  <% @sectors.each do |sector| %>
+  <% @sectors.active.each do |sector| %>
     <%= render sector %>
     <p>
       <%= link_to "Show this sector", sector %>
