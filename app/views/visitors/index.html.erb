@@ -1,16 +1,39 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Visitors" %>
 
-<h1>Visitors</h1>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Visitors</h1>
 
-<div id="visitors">
-  <% @visitors.active.each do |visitor| %>
-    <%= render visitor %>
-    <p>
-      <%= link_to "Show this visitor", visitor %>
-    </p>
-  <% end %>
+  <div class="row g-4">
+    <% @visitors.active.each do |visitor| %>
+      <div class="col-md-4">
+        <div class="card shadow-sm text-center p-3">
+          <% if visitor.photo.present? %>
+            <div class="d-flex justify-content-center">
+              <img src="<%= visitor.photo.url %>" class="rounded-circle" alt="Visitor Photo" 
+                style="width: 120px; height: 120px; object-fit: cover;">
+            </div>
+          <% else %>
+            <div class="d-flex justify-content-center align-items-center bg-light rounded-circle" 
+              style="width: 120px; height: 120px;">
+              No Photo
+            </div>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= visitor.name %></h5>
+            <p class="card-text"><strong>CPF:</strong> <%= visitor.cpf %></p>
+            <p class="card-text"><strong>RG:</strong> <%= visitor.rg %></p>
+            <p class="card-text"><strong>Phone:</strong> <%= visitor.phone %></p>
+            <div class="d-flex justify-content-between">
+              <%= link_to "Details", visitor, class: "btn btn-primary btn-sm" %>
+              <%= link_to "Edit", edit_visitor_path(visitor), class: "btn btn-warning btn-sm" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-center mt-4">
+    <%= link_to "New Visitor", new_visitor_path, class: "btn btn-success" %>
+  </div>
 </div>
-
-<%= link_to "New visitor", new_visitor_path %>

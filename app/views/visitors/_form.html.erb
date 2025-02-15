@@ -1,7 +1,7 @@
-<%= form_with(model: visitor) do |form| %>
+<%= form_with(model: visitor, class: "container mt-4 card p-4 shadow") do |form| %>
   <% if visitor.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(visitor.errors.count, "error") %> prohibited this visitor from being saved:</h2>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(visitor.errors.count, "error") %> prevented this visitor from being saved:</h4>
       <ul>
         <% visitor.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,52 +10,47 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :cpf, style: "display: block" %>
-    <%= form.text_field :cpf %>
+  <div class="mb-3">
+    <%= form.label :cpf, class: "form-label" %>
+    <%= form.text_field :cpf, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :rg, style: "display: block" %>
-    <%= form.text_field :rg %>
+  <div class="mb-3">
+    <%= form.label :rg, class: "form-label" %>
+    <%= form.text_field :rg, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone %>
+  <div class="mb-3">
+    <%= form.label :phone, class: "form-label" %>
+    <%= form.text_field :phone, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :photo, style: "display: block" %>
-    <%= form.file_field :photo, id: "photo-upload", accept: "image/*" %>
+  <div class="mb-3">
+    <%= form.label :photo, class: "form-label" %>
+    <%= form.file_field :photo, id: "photo-upload", class: "form-control", accept: "image/*" %>
   </div>
 
-  <!-- Preview da câmera ao vivo -->
-  <div>
-    <video id="webcam-preview" autoplay playsinline style="width: 100%; max-width: 400px;"></video>
+  <div class="mb-3 text-center">
+  <video id="webcam-preview" autoplay playsinline class="border rounded shadow-sm" style="width: 100%; max-width: 250px;"></video>
   </div>
 
-  <!-- Botão para capturar foto da webcam -->
-  <div>
-    <button type="button" id="capture-photo">Capturar Foto</button>
+  <div class="mb-3 text-center">
+    <button type="button" id="capture-photo" class="btn btn-secondary">Capturar foto</button>
   </div>
 
-  <!-- Canvas para exibir a foto capturada -->
-  <div>
-    <canvas id="photo-canvas" style="display: none;"></canvas>
-  </div>
+  <canvas id="photo-canvas" style="display: none;"></canvas>
 
-  <div>
-    <%= form.submit %>
+  <div class="d-flex justify-content-between">
+    <%= form.submit "Save", class: "btn btn-primary" %>
+    <%= link_to "Back to Visitors", visitors_path, class: "btn btn-secondary" %>
   </div>
 <% end %>
 
-<!-- Script para capturar foto da webcam -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const video = document.getElementById("webcam-preview");
@@ -63,24 +58,21 @@
     const captureButton = document.getElementById("capture-photo");
     const photoUpload = document.getElementById("photo-upload");
 
-    // Solicita acesso à webcam
     navigator.mediaDevices.getUserMedia({ video: true })
       .then((stream) => {
         video.srcObject = stream;
         video.play();
       })
-      .catch((error) => {
-        console.error("Erro ao acessar a webcam:", error);
-        alert("Não foi possível acessar a webcam. Verifique as permissões do navegador.");
+      .catch(() => {
+        alert("Erro ao acessar webcam.");
       });
 
-    // Captura a foto
     captureButton.addEventListener("click", () => {
       const context = canvas.getContext("2d");
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
+      
       // Converte a imagem do canvas para um arquivo e define no campo de upload
       canvas.toBlob((blob) => {
         const file = new File([blob], "webcam-photo.png", { type: "image/png" });

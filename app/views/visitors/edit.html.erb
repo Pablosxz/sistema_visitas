@@ -1,12 +1,14 @@
-<% content_for :title, "Editing visitor" %>
+<% content_for :title, "Editing Visitor" %>
 
-<h1>Editing visitor</h1>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Editando Visitante</h1>
 
-<%= render "form", visitor: @visitor %>
+  <div>
+    <%= render "form", visitor: @visitor %>
+  </div>
 
-<br>
-
-<div>
-  <%= link_to "Show this visitor", @visitor %> |
-  <%= link_to "Back to visitors", visitors_path %>
+  <div class="text-center mt-4">
+    <%= link_to "Show this Visitor", @visitor, class: "btn btn-primary mx-2" %>
+    <%= link_to "Back to Visitors", visitors_path, class: "btn btn-secondary mx-2" %>
+  </div>
 </div>

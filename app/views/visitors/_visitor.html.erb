@@ -1,32 +1,19 @@
-<div id="<%= dom_id visitor %>">
-  <p>
-    <strong>Cpf:</strong>
-    <%= visitor.cpf %>
-  </p>
+<div id="<%= dom_id visitor %>" class="card shadow-sm p-3 mb-4 bg-white rounded">
+  <div class="card-body text-center">
+    <h5 class="card-title text-primary"><%= visitor.name %></h5>
 
-  <p>
-    <strong>Name:</strong>
-    <%= visitor.name %>
-  </p>
+    <div class="d-flex justify-content-center mb-3">
+      <% if visitor.photo.present? %>
+        <%= image_tag visitor.photo.url, alt: "Foto do Visitante", class: "rounded-circle img-thumbnail", style: "width: 150px; height: 150px; object-fit: cover;" %>
+      <% else %>
+        <div class="text-muted">Nenhuma foto disponível</div>
+      <% end %>
+    </div>
 
-  <p>
-    <strong>Rg:</strong>
-    <%= visitor.rg %>
-  </p>
-
-  <p>
-    <strong>Phone:</strong>
-    <%= visitor.phone %>
-  </p>
-
-  <p>
-    <strong>Photo:</strong>
-  </p>
-
-  <% if visitor.photo.present? %>
-    <%= image_tag visitor.photo.url, alt: "Foto do Visitante" %>
-  <% else %>
-    <p>Nenhuma foto disponível.</p>
-  <% end %>
-
+    <ul class="list-group list-group-flush text-start">
+      <li class="list-group-item"><strong>CPF:</strong> <%= visitor.cpf %></li>
+      <li class="list-group-item"><strong>RG:</strong> <%= visitor.rg %></li>
+      <li class="list-group-item"><strong>Telefone:</strong> <%= visitor.phone %></li>
+    </ul>
+  </div>
 </div>
