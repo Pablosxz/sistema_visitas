@@ -1,46 +1,67 @@
-<%= form_with(model: @user, local: true) do |form| %>
-    <div>
-      <%= form.label :email %>
-      <%= form.email_field :email %>
+<%= form_with(model: @user, local: true, class: "needs-validation", novalidate: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@user.errors.count, "erro") %> impediram o salvamento:</h4>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
-  
-    <div>
-      <%= form.label :password %>
-      <%= form.password_field :password %>
-    </div>
-  
-    <div>
-      <%= form.label :password_confirmation %>
-      <%= form.password_field :password_confirmation %>
-    </div>
-  
-    <!-- Campo para role (só é possível criar admin ou attendant) -->
-    <div>
-      <%= form.label :role %>
-      <%= form.select :role, User.roles.keys.select { |role| %w[admin attendant].include?(role) }.map { |role| [role.humanize, role] }, prompt: "Selecione um papel" %>
-    </div>
-
-    <!-- Campo para unit_id (apenas se o papel for attendant) -->
-    <div id="unit_field" style="display: none;">
-      <%= form.label :unit_id %>
-      <%= form.collection_select :unit_id, Unit.active.all, :id, :name, prompt: "Selecione uma unidade" %>
-    </div>
-  
-    <%= form.submit %>
   <% end %>
-  
+
+  <div class="mb-3">
+    <%= form.label :email, "Email", class: "form-label" %>
+    <%= form.email_field :email, class: "form-control", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password, "Senha", class: "form-label" %>
+    <%= form.password_field :password, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password_confirmation, "Confirmação de Senha", class: "form-label" %>
+    <%= form.password_field :password_confirmation, class: "form-control" %>
+  </div>
+
+  <!-- Campo para role (só é possível criar admin ou attendant) -->
+  <% if @user.new_record? %>
+    <div class="mb-3">
+      <%= form.label :role, "Tipo de Usuário", class: "form-label" %>
+      <%= form.select :role, User.roles.keys.select { |role| %w[admin attendant].include?(role) }.map { |role| [role.humanize, role] }, prompt: "Selecione um tipo", class: "form-select" %>
+    </div>
+  <% else %>
+    <!-- Exibe o papel atual do usuário -->
+    <div class="mb-3">
+      <label class="form-label">Tipo de Usuário</label>
+      <input type="text" class="form-control" value="<%= @user.role.humanize %>" readonly>
+    </div>
+  <% end %>
+
+  <!-- Campo para unit_id (apenas se o papel for attendant) -->
+  <div id="unit_field" class="mb-3" style="display: none;">
+    <%= form.label :unit_id, "Unidade", class: "form-label" %>
+    <%= form.collection_select :unit_id, Unit.active.all, :id, :name, prompt: "Selecione uma unidade", class: "form-select" %>
+  </div>
+
+  <div class="text-center">
+    <%= form.submit "Salvar", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
 <script>
-  // Mostra ou esconde o campo de unidade com base no papel selecionado
   document.addEventListener("DOMContentLoaded", function() {
     const roleSelect = document.querySelector("#user_role");
     const unitField = document.querySelector("#unit_field");
 
-    roleSelect.addEventListener("change", function() {
-      if (this.value === "attendant") {
-        unitField.style.display = "block";
-      } else {
-        unitField.style.display = "none";
-      }
-    });
+    function toggleUnitField() {
+      unitField.style.display = roleSelect.value === "attendant" ? "block" : "none";
+    }
+
+    if (roleSelect) {
+      roleSelect.addEventListener("change", toggleUnitField);
+      toggleUnitField(); // Chama a função ao carregar a página para configurar corretamente
+    }
   });
 </script>

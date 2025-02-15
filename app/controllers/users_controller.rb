@@ -5,6 +5,21 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+
+    # Filtra os usuários com base no parâmetro `role`
+    case params[:role]
+    when "admin"
+      @users = @users.admin
+    when "employee"
+      @users = @users.employee
+    when "attendant"
+      @users = @users.attendant
+    end
+
+    # Filtra os usuários com base na pesquisa
+    if params[:search].present?
+      @users = @users.where("email LIKE ?", "%#{params[:search]}%")
+    end
   end
 
   def new

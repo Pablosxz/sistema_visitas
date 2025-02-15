@@ -1,24 +1,41 @@
-<h1>Usuários</h1>
+<% content_for :title, "Usuários" %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Tipo</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.email %></td>
-        <td><%= user.role %></td>
-        <td>
-          <%= link_to "Editar", edit_user_path(user) %> |
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Usuários</h1>
 
-<%= link_to "Novo Usuário", new_user_path %>
+  <!-- Filtro por tipo de usuário -->
+  <div class="d-flex justify-content-center mb-3">
+    <%= link_to "Todos", users_path(role: nil), class: "btn #{params[:role].blank? ? 'btn-primary' : 'btn-outline-primary'} mx-2" %>
+    <%= link_to "Administradores", users_path(role: 'admin'), class: "btn #{params[:role] == 'admin' ? 'btn-primary' : 'btn-outline-primary'} mx-2" %>
+    <%= link_to "Atendentes", users_path(role: 'attendant'), class: "btn #{params[:role] == 'attendant' ? 'btn-primary' : 'btn-outline-primary'} mx-2" %>
+    <%= link_to "Funcionários", users_path(role: 'employee'), class: "btn #{params[:role] == 'employee' ? 'btn-primary' : 'btn-outline-primary'} mx-2" %>
+  </div>
+
+  <!-- Tabela de Usuários -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Email</th>
+          <th>Papel</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td><%= user.role.humanize %></td>
+            <td>
+              <%= link_to "Editar", edit_user_path(user), class: "btn btn-warning btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-center mt-3">
+    <%= link_to "Novo Usuário", new_user_path, class: "btn btn-success" %>
+  </div>
+</div>

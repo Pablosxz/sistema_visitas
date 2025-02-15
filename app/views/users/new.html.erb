@@ -1,3 +1,13 @@
-<h1>Novo Usuário</h1>
-<%= render "form" %>
-<%= link_to "Voltar", users_path %>
+<% content_for :title, "Novo Usuário" %>
+
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Novo Usuário</h1>
+
+  <div class="card shadow-sm p-4">
+    <%= render "form" %>
+  </div>
+
+  <div class="text-center mt-3">
+    <%= link_to "Voltar", users_path, class: "btn btn-secondary" %>
+  </div>
+</div>
