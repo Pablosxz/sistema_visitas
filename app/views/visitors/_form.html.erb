@@ -1,4 +1,4 @@
-<%= form_with(model: visitor, class: "container mt-4 card p-4 shadow") do |form| %>
+<%= form_with(model: visitor) do |form| %>
   <% if visitor.errors.any? %>
     <div class="alert alert-danger">
       <h4><%= pluralize(visitor.errors.count, "error") %> prevented this visitor from being saved:</h4>
@@ -36,14 +36,16 @@
   </div>
 
   <div class="mb-3 text-center">
-  <video id="webcam-preview" autoplay playsinline class="border rounded shadow-sm" style="width: 100%; max-width: 250px;"></video>
+    <video id="webcam-preview" autoplay playsinline class="border rounded shadow-sm" style="width: 100%; max-width: 250px;"></video>
+  </div>
+
+  <div class="mb-3 text-center">
+    <canvas id="photo-canvas" style="display: none; border-radius: 50%; width: 150px; height: 150px; object-fit: cover;"></canvas>
   </div>
 
   <div class="mb-3 text-center">
     <button type="button" id="capture-photo" class="btn btn-secondary">Capturar foto</button>
   </div>
-
-  <canvas id="photo-canvas" style="display: none;"></canvas>
 
   <div class="d-flex justify-content-between">
     <%= form.submit "Save", class: "btn btn-primary" %>
@@ -83,6 +85,7 @@
         // Exibe a foto capturada no lugar do preview da câmera
         video.style.display = "none";
         canvas.style.display = "block";
+        canvas.classList.add("border", "shadow-sm", "mt-3", "d-block", "mx-auto");
       }, "image/png");
     });
   });
