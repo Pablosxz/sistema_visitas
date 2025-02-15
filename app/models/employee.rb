@@ -3,8 +3,9 @@ class Employee < ApplicationRecord
   belongs_to :user, optional: true
   has_many :visits
 
-  # Escopo para buscar apenas funcionários ativos
+  # Escopo para buscar apenas funcionários ativos e inativos
   scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
 
   # Aceita atributos aninhados para o usuário
   accepts_nested_attributes_for :user
@@ -23,7 +24,7 @@ class Employee < ApplicationRecord
 
   # Método para verificar se o funcionário está ativo
   def active?
-    active
+    self.active
   end
 
   # Método para destruir o usuário associado

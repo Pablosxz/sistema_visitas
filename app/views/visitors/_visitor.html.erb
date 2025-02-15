@@ -14,6 +14,8 @@
       <li class="list-group-item"><strong>CPF:</strong> <%= visitor.cpf %></li>
       <li class="list-group-item"><strong>RG:</strong> <%= visitor.rg %></li>
       <li class="list-group-item"><strong>Telefone:</strong> <%= visitor.phone %></li>
+      <li class="list-group-item"><strong>Status:</strong> <span class="<%= visitor.active? ? 'text-success' : 'text-danger' %>">
+        <%= visitor.active? ? "Ativo" : "Inativo" %></span>
     </ul>
   </div>
 </div>

@@ -1,10 +1,22 @@
-<% content_for :title, "Visitors" %>
-
 <div class="container mt-4">
   <h1 class="text-center mb-4">Visitantes</h1>
 
+  <!-- Formulário de Filtro e Pesquisa -->
+  <div class="mb-4">
+    <%= form_with url: visitors_path, method: :get, local: true, class: "d-flex gap-2" do |form| %>
+      <%= form.label :search, "Pesquisar:", class: "visually-hidden" %>
+      <%= form.text_field :search, value: params[:search], placeholder: "Buscar por nome...", class: "form-control w-50" %>
+
+      <%= form.label :status, "Filtrar por:", class: "visually-hidden" %>
+      <%= form.select :status, [["Todos", ""], ["Ativos", "active"], ["Inativos", "inactive"]], 
+          selected: params[:status], class: "form-select" %>
+
+      <%= form.submit "Filtrar", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
   <div class="row g-4">
-    <% @visitors.active.each do |visitor| %>
+    <% @visitors.each do |visitor| %>
       <div class="col-md-4">
         <div class="card shadow-sm text-center p-3">
           <% if visitor.photo.present? %>
@@ -23,6 +35,8 @@
             <p class="card-text"><strong>CPF:</strong> <%= visitor.cpf %></p>
             <p class="card-text"><strong>RG:</strong> <%= visitor.rg %></p>
             <p class="card-text"><strong>Phone:</strong> <%= visitor.phone %></p>
+            <p class="list-group-item"><strong>Status:</strong> <span class="<%= visitor.active? ? 'text-success' : 'text-danger' %>">
+        <%= visitor.active? ? "Ativo" : "Inativo" %></span></p>
             <div class="d-flex justify-content-between">
               <%= link_to "Detalhes", visitor, class: "btn btn-primary btn-sm" %>
               <%= link_to "Editar", edit_visitor_path(visitor), class: "btn btn-warning btn-sm" %>

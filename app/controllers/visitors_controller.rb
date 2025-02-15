@@ -6,6 +6,19 @@ class VisitorsController < ApplicationController
   # GET /visitors or /visitors.json
   def index
     @visitors = Visitor.all
+
+    # Filtra os visitantes com base no parâmetro `status`
+    case params[:status]
+    when "active"
+      @visitors = @visitors.active
+    when "inactive"
+      @visitors = @visitors.inactive
+    end
+
+    # Filtra os visitantes com base na pesquisa
+    if params[:search].present?
+      @visitors = @visitors.where("name LIKE ?", "%#{params[:search]}%")
+    end
   end
 
   # GET /visitors/1 or /visitors/1.json
