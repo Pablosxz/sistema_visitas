@@ -1,12 +1,11 @@
-<div id="<%= dom_id unit %>">
+<div id="<%= dom_id unit %>" class="card shadow-sm p-3">
   <p>
-    <strong>Name:</strong>
-    <%= unit.name %>
+    <strong>Nome:</strong> <%= unit.name %>
   </p>
 
   <p>
-    <strong>Active:</strong>
-    <%= unit.active ? "Ativo" : "Inativo" %>
+    <strong>Status:</strong> <span class="<%= unit.active? ? 'text-success' : 'text-danger' %>">
+      <%= unit.active? ? "Ativo" : "Inativo" %>
+    </span>
   </p>
-
 </div>

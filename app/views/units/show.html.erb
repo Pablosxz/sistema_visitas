@@ -1,10 +1,29 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, @unit.name %>
 
-<%= render @unit %>
+<div class="container mt-4">
+  <h1 class="mb-4 text-center"><%= @unit.name %></h1>
 
-<div>
-  <%= link_to "Edit this unit", edit_unit_path(@unit) %> |
-  <%= button_to "Desativar", deactivate_unit_path(@unit), method: :patch, data: { confirm: "Tem certeza?" } if @unit.active %>
-  <%= link_to "Back to units", units_path %>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title"><%= @unit.name %></h5>
+      <p class="card-text">
+        <strong>Status:</strong> <span class="<%= @unit.active? ? 'text-success' : 'text-danger' %>">
+          <%= @unit.active? ? "Ativo" : "Inativo" %>
+        </span>
+      </p>
+    </div>
+  </div>
 
+  <!-- Botões de ação -->
+  <div class="d-flex justify-content-center gap-3 mt-4">
+    <%= link_to "Editar", edit_unit_path(@unit), class: "btn btn-warning" %>
+
+    <% if @unit.active? %>
+      <%= button_to "Desativar", deactivate_unit_path(@unit), method: :patch, class: "btn btn-danger", data: { confirm: "Tem certeza?" } %>
+    <% else %>
+      <%= button_to "Ativar", activate_unit_path(@unit), method: :patch, class: "btn btn-success", data: { confirm: "Tem certeza?" } %>
+    <% end %>
+
+    <%= link_to "Voltar", units_path, class: "btn btn-secondary" %>
+  </div>
 </div>

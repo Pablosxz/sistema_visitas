@@ -6,6 +6,19 @@ class UnitsController < ApplicationController
   # GET /units or /units.json
   def index
     @units = Unit.all
+
+    # Filtra as unidades com base no parâmetro `status`
+    case params[:status]
+    when "active"
+      @units = @units.active
+    when "inactive"
+      @units = @units.inactive
+    end
+
+    # Filtra as unidades com base na pesquisa
+    if params[:search].present?
+      @units = @units.where("name LIKE ?", "%#{params[:search]}%")
+    end
   end
 
   # GET /units/1 or /units/1.json

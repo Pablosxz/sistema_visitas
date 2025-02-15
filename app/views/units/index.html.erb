@@ -1,16 +1,57 @@
-<p style="color: green"><%= notice %></p>
+<p class="alert alert-success"><%= notice %></p>
 
 <% content_for :title, "Units" %>
 
-<h1>Units</h1>
+<div class="container mt-4">
+  <h1 class="mb-4 text-center">Units</h1>
 
-<div id="units">
-  <% @units.active.each do |unit| %>
-    <%= render unit %>
-    <p>
-      <%= link_to "Show this unit", unit %>
-    </p>
-  <% end %>
+  <!-- Barra de Pesquisa -->
+  <div class="mb-4">
+    <%= form_with url: units_path, method: :get, local: true, class: "d-flex gap-2" do |form| %>
+      <%= form.text_field :search, placeholder: "Pesquisar por nome", value: params[:search], class: "form-control w-50" %>
+      <%= form.submit "Pesquisar", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <!-- Filtros (Geral, Ativos, Inativos) -->
+  <ul class="nav nav-pills justify-content-center mb-4">
+    <li class="nav-item">
+      <%= link_to "Geral", units_path(status: nil, search: params[:search]), class: "nav-link #{'active' if params[:status].blank?}" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Ativos", units_path(status: "active", search: params[:search]), class: "nav-link #{'active' if params[:status] == 'active'}" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Inativos", units_path(status: "inactive", search: params[:search]), class: "nav-link #{'active' if params[:status] == 'inactive'}" %>
+    </li>
+  </ul>
+
+  <!-- Lista de Unidades -->
+  <div class="row">
+    <% if @units.any? %>
+      <% @units.each do |unit| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><%= unit.name %></h5>
+              <p class="card-text">
+                <strong>Status:</strong> <%= unit.active? ? "Ativo" : "Inativo" %>
+              </p>
+              <div class="d-flex justify-content-between">
+                <%= link_to "Ver Detalhes", unit, class: "btn btn-outline-primary btn-sm" %>
+                <%= link_to "Editar", edit_unit_path(unit), class: "btn btn-warning btn-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-center text-muted">Nenhuma unidade encontrada.</p>
+    <% end %>
+  </div>
+
+  <!-- Botão de Nova Unidade -->
+  <div class="text-center mt-4">
+    <%= link_to "Nova Unidade", new_unit_path, class: "btn btn-success" %>
+  </div>
 </div>
-
-<%= link_to "New unit", new_unit_path %>

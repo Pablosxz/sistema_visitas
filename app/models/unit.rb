@@ -3,7 +3,9 @@ class Unit < ApplicationRecord
     has_many :sectors
     has_many :users
 
+    # Escopos para filtrar unidades ativas e inativas
     scope :active, -> { where(active: true) }
+    scope :inactived, -> { where(active: false) }
   
     validates :name, presence: true, uniqueness: true
 
@@ -15,11 +17,11 @@ class Unit < ApplicationRecord
     end
 
     def deactivate!
-        update(active: false)
+        update_column(:active, false)
     end
 
     def activate!
-        update(active: true)
+        update_column(:active, true)
     end
 
     # Método para desativar os setores e atendentes associados junto com a unidade
