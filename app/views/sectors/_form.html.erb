@@ -1,27 +1,26 @@
-<%= form_with(model: sector) do |form| %>
+<%= form_with(model: sector, class: "needs-validation", novalidate: true) do |form| %>
   <% if sector.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(sector.errors.count, "error") %> prohibited this sector from being saved:</h2>
-
+    <div class="alert alert-danger">
+      <h4><%= pluralize(sector.errors.count, "erro") %> impediram o salvamento:</h4>
       <ul>
-        <% sector.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% sector.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, "Nome do Setor", class: "form-label" %>
+    <%= form.text_field :name, class: "form-control", required: true %>
   </div>
 
-  <div>
-    <%= form.label :unit_id, style: "display: block" %>
+  <div class="mb-3">
+    <%= form.label :unit_id, "Unidade", style: "display: block" %>
     <%= form.collection_select :unit_id, Unit.active.all, :id, :name, prompt: "Selecione uma unidade" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="text-center">
+    <%= form.submit "Salvar", class: "btn btn-primary" %>
   </div>
 <% end %>

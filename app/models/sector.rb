@@ -3,7 +3,9 @@ class Sector < ApplicationRecord
   has_many :employees
   has_many :visits
 
+  # Escopos para filtrar unidades ativas e inativas
   scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
   
   validates :name, presence: true
   validates :unit_id, presence: true
@@ -16,11 +18,11 @@ class Sector < ApplicationRecord
   end
 
   def deactivate!
-    update(active: false)
+    update_column(:active, false)
   end
 
   def activate!
-    update(active: true)
+    update_column(:active, true)
   end
 
   def deactivate_employees_if_inactive

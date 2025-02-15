@@ -1,16 +1,58 @@
-<p style="color: green"><%= notice %></p>
+<p class="alert alert-success"><%= notice %></p>
 
 <% content_for :title, "Sectors" %>
 
-<h1>Sectors</h1>
+<div class="container mt-4">
+  <h1 class="mb-4 text-center">Setores</h1>
 
-<div id="sectors">
-  <% @sectors.active.each do |sector| %>
-    <%= render sector %>
-    <p>
-      <%= link_to "Show this sector", sector %>
-    </p>
-  <% end %>
+  <!-- Barra de Pesquisa -->
+  <div class="mb-4">
+    <%= form_with url: sectors_path, method: :get, local: true, class: "d-flex gap-2" do |form| %>
+      <%= form.text_field :search, placeholder: "Pesquisar por nome", value: params[:search], class: "form-control w-50" %>
+      <%= form.submit "Pesquisar", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <!-- Filtros (Geral, Ativos, Inativos) -->
+  <ul class="nav nav-pills justify-content-center mb-4">
+    <li class="nav-item">
+      <%= link_to "Geral", sectors_path(status: nil, search: params[:search]), class: "nav-link #{'active' if params[:status].blank?}" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Ativos", sectors_path(status: "active", search: params[:search]), class: "nav-link #{'active' if params[:status] == 'active'}" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Inativos", sectors_path(status: "inactive", search: params[:search]), class: "nav-link #{'active' if params[:status] == 'inactive'}" %>
+    </li>
+  </ul>
+
+  <!-- Lista de Setores -->
+  <div class="row">
+    <% if @sectors.any? %>
+      <% @sectors.each do |sector| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><%= sector.name %></h5>
+              <p class="card-text">
+                <strong>Status:</strong> <%= sector.active? ? "Ativo" : "Inativo" %>
+              </p>
+              <div class="d-flex justify-content-between">
+                <%= link_to "Ver Detalhes", sector, class: "btn btn-outline-primary btn-sm" %>
+                <%= link_to "Editar", edit_sector_path(sector), class: "btn btn-warning btn-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-center text-muted">Nenhum setor encontrada.</p>
+    <% end %>
+  </div>
+
+  <!-- Botão de Novo Setor -->
+  <div class="text-center mt-4">
+    <%= link_to "Novo Setor", new_sector_path, class: "btn btn-success" %>
+  </div>
 </div>
 
-<%= link_to "New sector", new_sector_path %>

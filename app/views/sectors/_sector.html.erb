@@ -1,12 +1,18 @@
-<div id="<%= dom_id sector %>">
+
+<div id="<%= dom_id sector %>" class="card shadow-sm p-3">
   <p>
-    <strong>Name:</strong>
-    <%= sector.name %>
+    <strong>Nome:</strong> <%= sector.name %>
   </p>
 
   <p>
-    <strong>Unit:</strong>
+    <strong>Unidade:</strong>
     <%= sector.unit_id %>
   </p>
 
+  <p>
+    <strong>Status:</strong> <span class="<%= sector.active? ? 'text-success' : 'text-danger' %>">
+      <%= sector.active? ? "Ativo" : "Inativo" %>
+    </span>
+  </p>
 </div>
+

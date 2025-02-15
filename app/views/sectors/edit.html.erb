@@ -1,12 +1,13 @@
-<% content_for :title, "Editing sector" %>
+<% content_for :title, "Editar Setor" %>
 
-<h1>Editing sector</h1>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Editar Setor</h1>
 
-<%= render "form", sector: @sector %>
+  <div class="card shadow-sm p-4">
+    <%= render "form", sector: @sector %>
+  </div>
 
-<br>
-
-<div>
-  <%= link_to "Show this sector", @sector %> |
-  <%= link_to "Back to sectors", sectors_path %>
+  <div class="text-center mt-3">
+    <%= link_to "Voltar", sectors_path, class: "btn btn-secondary" %>
+  </div>
 </div>

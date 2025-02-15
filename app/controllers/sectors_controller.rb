@@ -6,6 +6,19 @@ class SectorsController < ApplicationController
   # GET /sectors or /sectors.json
   def index
     @sectors = Sector.all
+
+    # Filtra as unidades com base no parâmetro `status`
+    case params[:status]
+    when "active"
+      @sectors = @sectors.active
+    when "inactive"
+      @sectors = @sectors.inactive
+    end
+
+    # Filtra as unidades com base na pesquisa
+    if params[:search].present?
+      @sectors = @sectors.where("name LIKE ?", "%#{params[:search]}%")
+    end
   end
 
   # GET /sectors/1 or /sectors/1.json
