@@ -1,7 +1,7 @@
 <% content_for :title, "Visitors" %>
 
 <div class="container mt-4">
-  <h1 class="text-center mb-4">Visitors</h1>
+  <h1 class="text-center mb-4">Visitantes</h1>
 
   <div class="row g-4">
     <% @visitors.active.each do |visitor| %>
@@ -24,8 +24,8 @@
             <p class="card-text"><strong>RG:</strong> <%= visitor.rg %></p>
             <p class="card-text"><strong>Phone:</strong> <%= visitor.phone %></p>
             <div class="d-flex justify-content-between">
-              <%= link_to "Details", visitor, class: "btn btn-primary btn-sm" %>
-              <%= link_to "Edit", edit_visitor_path(visitor), class: "btn btn-warning btn-sm" %>
+              <%= link_to "Detalhes", visitor, class: "btn btn-primary btn-sm" %>
+              <%= link_to "Editar", edit_visitor_path(visitor), class: "btn btn-warning btn-sm" %>
             </div>
           </div>
         </div>
@@ -34,6 +34,6 @@
   </div>
 
   <div class="text-center mt-4">
-    <%= link_to "New Visitor", new_visitor_path, class: "btn btn-success" %>
+    <%= link_to "Novo Visitante", new_visitor_path, class: "btn btn-success" %>
   </div>
 </div>

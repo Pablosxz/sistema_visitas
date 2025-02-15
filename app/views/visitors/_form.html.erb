@@ -16,22 +16,22 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :name, class: "form-label" %>
+    <%= form.label :name, "Nome", class: "form-label" %>
     <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div class="mb-3">
-    <%= form.label :rg, class: "form-label" %>
+    <%= form.label :rg, "RG", class: "form-label" %>
     <%= form.text_field :rg, class: "form-control" %>
   </div>
 
   <div class="mb-3">
-    <%= form.label :phone, class: "form-label" %>
+    <%= form.label :phone, "Telefone", class: "form-label" %>
     <%= form.text_field :phone, class: "form-control" %>
   </div>
 
   <div class="mb-3">
-    <%= form.label :photo, class: "form-label" %>
+    <%= form.label :photo, "Foto" , class: "form-label" %>
     <%= form.file_field :photo, id: "photo-upload", class: "form-control", accept: "image/*" %>
   </div>
 
@@ -48,8 +48,8 @@
   </div>
 
   <div class="d-flex justify-content-between">
-    <%= form.submit "Save", class: "btn btn-primary" %>
-    <%= link_to "Back to Visitors", visitors_path, class: "btn btn-secondary" %>
+    <%= form.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Voltar", visitors_path, class: "btn btn-secondary" %>
   </div>
 <% end %>
 
