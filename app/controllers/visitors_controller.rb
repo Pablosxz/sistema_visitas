@@ -80,7 +80,7 @@ class VisitorsController < ApplicationController
   # Busca de visitantes
   def search
     cpf = params[:cpf]
-    visitor = Visitor.find_by(cpf: cpf)
+    visitor = Visitor.find_by(cpf: cpf, active: true)
 
     if visitor
       render json: {

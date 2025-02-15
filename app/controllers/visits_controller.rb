@@ -15,7 +15,7 @@ class VisitsController < ApplicationController
 
   # GET /visits or /visits.json
   def index
-    @visits = Visit.all
+    @visits = Visit.where(unit_id: current_user.unit_id)
   end
 
   # GET /visits/1 or /visits/1.json
