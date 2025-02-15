@@ -77,18 +77,28 @@ class VisitorsController < ApplicationController
     redirect_to visitors_path, alert: "Erro ao ativar visitante: #{e.message}"
   end
 
-  # Busca de visitantes
   def search
     cpf = params[:cpf]
-    visitor = Visitor.find_by(cpf: cpf, active: true)
+    visitor = Visitor.find_by(cpf: cpf)
 
     if visitor
-      render json: {
-        id: visitor.id,
-        name: visitor.name,
-        rg: visitor.rg,
-        phone: visitor.phone
-      }
+      if visitor.active?
+        render json: {
+          id: visitor.id,
+          name: visitor.name,
+          rg: visitor.rg,
+          phone: visitor.phone,
+          active: true
+        }
+      else
+        render json: {
+          id: visitor.id,
+          name: visitor.name,
+          rg: visitor.rg,
+          phone: visitor.phone,
+          active: false,
+        }
+      end
     else
       render json: nil
     end

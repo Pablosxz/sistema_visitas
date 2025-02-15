@@ -27,6 +27,9 @@
     <div>
       <strong>Telefone:</strong> <span id="visitor_phone"></span>
     </div>
+    <div>
+      <strong>Situação:</strong> <span id="visitor_active"></span>
+    </div>
   </div>
 
   <!-- Campo oculto para enviar o visitor_id -->
@@ -54,7 +57,7 @@
   </div>
 
   <div>
-    <%= form.submit "Salvar Visita" %>
+    <%= form.submit "Salvar Visita", id: "save_visit_button", disabled: true %>
   </div>
 <% end %>
 
@@ -67,6 +70,8 @@
     const visitorRg = document.getElementById("visitor_rg");
     const visitorPhone = document.getElementById("visitor_phone");
     const visitorIdField = document.getElementById("visitor_id");
+    const visitorActive = document.getElementById("visitor_active");
+    const saveButton = document.getElementById("save_visit_button");
 
     cpfField.addEventListener("input", function() {
       const cpf = this.value.replace(/\D/g, ""); // Remove caracteres não numéricos
@@ -81,7 +86,16 @@
               visitorRg.textContent = data.rg;
               visitorPhone.textContent = data.phone;
               visitorIdField.value = data.id;
+              visitorActive.textContent = data.active ? "Ativo" : "Inativo";
               visitorDetails.style.display = "block";
+
+              if (data.active) {
+                saveButton.disabled = false; // Habilita o botão se o visitante for ativo
+              } else {
+                saveButton.disabled = true; // Desabilita o botão se o visitante for inativo
+                alert("Este visitante está inativo. Reative-o antes de registrar a visita.");
+              }
+
             } else {
               // Limpa os campos se o visitante não for encontrado
               visitorName.textContent = "";
@@ -89,6 +103,7 @@
               visitorPhone.textContent = "";
               visitorIdField.value = "";
               visitorDetails.style.display = "none";
+              saveButton.disabled = true; // Desabilita o botão se o visitante não existir
               alert("Visitante não encontrado. Por favor, cadastre-o primeiro.");
             }
           })
