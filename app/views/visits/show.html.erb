@@ -1,10 +1,26 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "Detalhes da Visita" %>
 
-<%= render @visit %>
+<div class="container mt-4">
+  <div class="alert alert-success" role="alert">
+    <%= notice if notice.present? %>
+  </div>
 
-<div>
-  <%= link_to "Edit this visit", edit_visit_path(@visit) %> |
-  <%= link_to "Back to visits", visits_path %>
+  <div class="card shadow-lg p-4">
+    <h2 class="text-center mb-4">Detalhes da Visita</h2>
 
-  <%= button_to "Destroy this visit", @visit, method: :delete %>
+    <%= render @visit %>
+
+    <div class="mt-4 d-flex justify-content-between">
+      <% if can? :update, Visit %>
+        <%= link_to "Editar Visita", edit_visit_path(@visit), class: "btn btn-warning" %>
+      <% end %>
+
+      <%= link_to "Voltar", visits_path, class: "btn btn-secondary" %>
+      
+      <% if can? :destroy, Visit %>
+        <%= button_to "Excluir Visita", @visit, method: :delete, class: "btn btn-danger",
+            data: { confirm: "Tem certeza que deseja excluir esta visita?" } %>
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -1,7 +1,6 @@
-<%= form_with(model: visit, local: true) do |form| %>
+<%= form_with(model: visit, local: true, class: "needs-validation") do |form| %>
   <% if visit.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(visit.errors.count, "error") %> prohibited this visit from being saved:</h2>
+    <div class="alert alert-danger">
       <ul>
         <% visit.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -10,54 +9,44 @@
     </div>
   <% end %>
 
-  <!-- Campo de CPF para consulta -->
-  <div>
-    <%= form.label :cpf, "CPF do Visitante", style: "display: block" %>
-    <%= form.text_field :cpf, id: "visitor_cpf" %>
+  <!-- CPF para consulta -->
+  <div class="mb-3">
+    <%= form.label :cpf, "CPF do Visitante", class: "form-label" %>
+    <%= form.text_field :cpf, id: "visitor_cpf", class: "form-control", placeholder: "Digite o CPF" %>
   </div>
 
-  <!-- Campos para os dados do visitante (serão preenchidos automaticamente) -->
-  <div id="visitor_details" style="display: none;">
-    <div>
-      <strong>Nome:</strong> <span id="visitor_name"></span>
-    </div>
-    <div>
-      <strong>RG:</strong> <span id="visitor_rg"></span>
-    </div>
-    <div>
-      <strong>Telefone:</strong> <span id="visitor_phone"></span>
-    </div>
-    <div>
-      <strong>Situação:</strong> <span id="visitor_active"></span>
-    </div>
+  <!-- Dados do Visitante (Preenchidos Automaticamente) -->
+  <div id="visitor_details" class="mb-3 card p-3 shadow-sm d-none">
+    <p><strong>Nome:</strong> <span id="visitor_name"></span></p>
+    <p><strong>RG:</strong> <span id="visitor_rg"></span></p>
+    <p><strong>Telefone:</strong> <span id="visitor_phone"></span></p>
+    <p><strong>Situação:</strong> <span id="visitor_active"></span></p>
   </div>
 
-  <!-- Campo oculto para enviar o visitor_id -->
   <%= form.hidden_field :visitor_id, id: "visitor_id" %>
-
-  <!-- Campo oculto para enviar a unidade correta -->
   <%= form.hidden_field :unit_id, value: current_user.unit_id %>
 
-  <!-- Seleção do Setor (Filtrado pela Unidade) -->
-  <div>
-    <%= form.label :sector_id, style: "display: block" %>
-    <%= form.collection_select :sector_id, @sectors, :id, :name, { prompt: "Selecione um setor" }, { id: "sector_select" } %>
+  <!-- Setor -->
+  <div class="mb-3">
+    <%= form.label :sector_id, "Setor", class: "form-label" %>
+    <%= form.collection_select :sector_id, @sectors, :id, :name, { prompt: "Selecione um setor" }, { id: "sector_select", class: "form-select" } %>
   </div>
 
-  <!-- Seleção do Funcionário -->
-  <div>
-    <%= form.label :employee_id, style: "display: block" %>
-    <%= form.collection_select :employee_id, @employees_by_sector.values.flatten, :id, :name, { prompt: "Selecione um funcionário" }, { class: "select2" } %>
+  <!-- Funcionário -->
+  <div class="mb-3">
+    <%= form.label :employee_id, "Funcionário", class: "form-label" %>
+    <%= form.collection_select :employee_id, @employees_by_sector.values.flatten, :id, :name, { prompt: "Selecione um funcionário" }, { class: "form-select select2" } %>
   </div>
 
   <!-- Data e Hora da Visita -->
-  <div>
-    <%= form.label :visit_time, style: "display: block" %>
-    <%= form.datetime_field :visit_time, value: @visit.visit_time %>
+  <div class="mb-3">
+    <%= form.label :visit_time, "Data e Hora da Visita", class: "form-label" %>
+    <%= form.datetime_field :visit_time, value: @visit.visit_time, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.submit "Salvar Visita", id: "save_visit_button", disabled: true %>
+  <!-- Botão de envio -->
+  <div class="mt-3">
+    <%= form.submit "Salvar Visita", id: "save_visit_button", class: "btn btn-success w-100", disabled: true %>
   </div>
 <% end %>
 
@@ -81,35 +70,28 @@
           .then(response => response.json())
           .then(data => {
             if (data) {
-              // Preenche os campos com os dados do visitante
               visitorName.textContent = data.name;
               visitorRg.textContent = data.rg;
               visitorPhone.textContent = data.phone;
               visitorIdField.value = data.id;
-              visitorActive.textContent = data.active ? "Ativo" : "Inativo";
-              visitorDetails.style.display = "block";
+              visitorActive.textContent = data.active ? "✅ Ativo" : "❌ Inativo";
+              visitorDetails.classList.remove("d-none");
 
-              if (data.active) {
-                saveButton.disabled = false; // Habilita o botão se o visitante for ativo
-              } else {
-                saveButton.disabled = true; // Desabilita o botão se o visitante for inativo
+              saveButton.disabled = !data.active;
+              if (!data.active) {
                 alert("Este visitante está inativo. Reative-o antes de registrar a visita.");
               }
-
             } else {
-              // Limpa os campos se o visitante não for encontrado
               visitorName.textContent = "";
               visitorRg.textContent = "";
               visitorPhone.textContent = "";
               visitorIdField.value = "";
-              visitorDetails.style.display = "none";
-              saveButton.disabled = true; // Desabilita o botão se o visitante não existir
+              visitorDetails.classList.add("d-none");
+              saveButton.disabled = true;
               alert("Visitante não encontrado. Por favor, cadastre-o primeiro.");
             }
           })
-          .catch(error => {
-            console.error("Erro ao buscar visitante:", error);
-          });
+          .catch(error => console.error("Erro ao buscar visitante:", error));
       }
     });
   });

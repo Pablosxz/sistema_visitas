@@ -1,41 +1,87 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "Visitas" %>
 
-<% content_for :title, "Visits" %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Visitas</h1>
 
-<h1>Visits</h1>
+  <p class="text-success"><%= notice %></p>
 
-<% @visits.each do |visit| %>
-  <% if can?(:read, Visit) %>
-  <tr>
-    <td>Nome:
-    <%= visit.visitor.name %>  
-    </td>
-    <td>Setor:
-    <%= visit.sector.name %>  
-    </td>
-    <td>Funcionário:
-    <%= visit.employee.name %>  
-    </td>
-    <td>Horário:
-    <%= visit.visit_time %>  
-    </td>
-    <td>
-      <% if visit.confirmed_at.present? %>
-        ✅ Confirmada em <%= visit.confirmed_at.strftime("%d/%m/%Y %H:%M") %>
-      <% elsif can?(:confirm, visit) %>
-        <%= button_to "Confirmar Visita", confirm_visit_path(visit), method: :patch, class: "btn btn-success" %>
-      <% else %>
-        ⏳ Pendente
-      <% end %>
-    </td>
-  </tr>
+  <!-- Filtros -->
+  <div class="card p-3 mb-4 shadow-sm">
+    <%= form_with url: visits_path, method: :get, local: true, class: "row g-3 align-items-end" do |form| %>
+      <div class="col-md-3">
+        <%= form.label :name, "Nome do Visitante", class: "form-label" %>
+        <%= form.text_field :name, value: params[:name], class: "form-control", placeholder: "Buscar por nome" %>
+      </div>
+
+      <div class="col-md-3">
+        <%= form.label :sector, "Setor", class: "form-label" %>
+        <%= form.select :sector, options_from_collection_for_select(@sectors, :id, :name, params[:sector]), 
+                        { include_blank: "Todos" }, class: "form-select" %>
+      </div>
+
+      <div class="col-md-3">
+        <%= form.label :employee, "Funcionário", class: "form-label" %>
+        <%= form.select :employee, options_from_collection_for_select(@employees, :id, :name, params[:employee]), 
+                        { include_blank: "Todos" }, class: "form-select" %>
+      </div>
+
+      <div class="col-md-2">
+        <%= form.label :order, "Ordenar por Data", class: "form-label" %>
+        <%= form.select :order, [["Mais recente", "desc"], ["Mais antigo", "asc"]], 
+                        { selected: params[:order] || "desc" }, class: "form-select" %>
+      </div>
+
+      <div class="col-md-1 d-flex align-items-end">
+        <%= form.submit "Filtrar", class: "btn btn-primary w-100" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Tabela de Visitas -->
+  <div class="table-responsive">
+    <table class="table table-striped table-hover text-center shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>Nome</th>
+          <th>Setor</th>
+          <th>Funcionário</th>
+          <th>Horário</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @visits.each do |visit| %>
+          <% if can?(:read, Visit) %>
+            <tr>
+              <td><%= visit.visitor.name %></td>
+              <td><%= visit.sector.name %></td>
+              <td><%= visit.employee.name %></td>
+              <td><%= visit.visit_time.strftime("%d/%m/%Y %H:%M") %></td>
+              <td>
+                <% if visit.confirmed_at.present? %>
+                  <span class="badge bg-success">✅ Confirmada em <%= visit.confirmed_at.strftime("%d/%m/%Y %H:%M") %></span>
+                <% elsif can?(:confirm, visit) %>
+                  <%= button_to "Confirmar", confirm_visit_path(visit), method: :patch, class: "btn btn-success btn-sm" %>
+                <% else %>
+                  <span class="badge bg-warning text-dark">⏳ Pendente</span>
+                <% end %>
+              </td>
+              <td>
+                <% if can?(:read, Visit) %>
+                  <%= link_to "Detalhes", visit, class: "btn btn-primary btn-sm" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if can?(:create, Visit) %>
+    <div class="text-center mt-4">
+      <%= link_to "Nova Visita", new_visit_path, class: "btn btn-success" %>
+    </div>
   <% end %>
-  <% if can?(:update, Visit) %>
-    <p>
-      <%= link_to "Show this visit", visit %>
-    </p>
-  <% end %>
-<% end %>
-<% if can?(:create, Visit) %>
-  <%= link_to "New visit", new_visit_path %>
-<% end %>
+</div>

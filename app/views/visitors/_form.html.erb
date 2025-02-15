@@ -1,7 +1,6 @@
 <%= form_with(model: visitor) do |form| %>
   <% if visitor.errors.any? %>
     <div class="alert alert-danger">
-      <h4><%= pluralize(visitor.errors.count, "error") %> prevented this visitor from being saved:</h4>
       <ul>
         <% visitor.errors.each do |error| %>
           <li><%= error.full_message %></li>

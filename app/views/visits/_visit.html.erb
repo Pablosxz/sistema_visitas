@@ -1,27 +1,20 @@
-<div id="<%= dom_id visit %>">
-  <p>
-    <strong>Visitor:</strong>
-    <%= visit.visitor_id %>
-  </p>
+<div id="<%= dom_id visit %>" class="card p-3 shadow-sm">
+  <div class="card-body">
+    <h4 class="card-title text-primary"><%= visit.visitor.name %></h4>
 
-  <p>
-    <strong>Sector:</strong>
-    <%= visit.sector_id %>
-  </p>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>Setor:</strong> <%= visit.sector.name %></li>
+      <li class="list-group-item"><strong>Funcionário Responsável:</strong> <%= visit.employee.name %></li>
+      <li class="list-group-item"><strong>Data da Visita:</strong> <%= visit.visit_time.strftime("%d/%m/%Y %H:%M") %></li>
+      <li class="list-group-item"><strong>Unidade:</strong> <%= visit.unit.name %></li>
+    </ul>
 
-  <p>
-    <strong>Employee:</strong>
-    <%= visit.employee_id %>
-  </p>
-
-  <p>
-    <strong>Visit time:</strong>
-    <%= visit.visit_time %>
-  </p>
-
-  <p>
-    <strong>Unit:</strong>
-    <%= visit.unit_id %>
-  </p>
-
+    <div class="mt-3 text-center">
+      <% if visit.confirmed_at.present? %>
+        <span class="badge bg-success">✅ Confirmada em <%= visit.confirmed_at.strftime("%d/%m/%Y %H:%M") %></span>
+      <% else %>
+        <span class="badge bg-warning">⏳ Pendente</span>
+      <% end %>
+    </div>
+  </div>
 </div>

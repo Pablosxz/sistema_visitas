@@ -15,7 +15,24 @@ class VisitsController < ApplicationController
 
   # GET /visits or /visits.json
   def index
-    @visits = Visit.where(unit_id: current_user.unit_id)
+    @visits = Visit.where(unit_id: current_user.unit_id) if current_user.attendant?
+    @visits = @visits.includes(:visitor, :sector, :employee)
+
+    # Filtros
+    @visits = @visits.joins(:visitor).where("visitors.name ILIKE ?", "%#{params[:name]}%") if params[:name].present?
+    @visits = @visits.where(sector_id: params[:sector]) if params[:sector].present?
+    @visits = @visits.where(employee_id: params[:employee]) if params[:employee].present?
+
+    # Ordenação por data
+    if params[:order] == "asc"
+      @visits = @visits.order(visit_time: :asc)
+    else
+      @visits = @visits.order(visit_time: :desc)
+    end
+
+    # Carregar setores e funcionários para o filtro
+    @sectors = Sector.all
+    @employees = Employee.all
   end
 
   # GET /visits/1 or /visits/1.json
@@ -31,6 +48,8 @@ class VisitsController < ApplicationController
 
   # GET /visits/1/edit
   def edit
+    @sectors = Sector.where(unit_id: current_user.unit_id, active: true) # Apenas setores da unidade do atendente
+    @employees_by_sector = Employee.includes(:sector).where(sector: @sectors).group_by(&:sector_id) # Agrupa funcionários por setor
   end
 
   # POST /visits or /visits.json
