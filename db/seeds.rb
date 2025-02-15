@@ -47,4 +47,4 @@ visitor2 = Visitor.create!(cpf: "98765432100", name: "Jane Doe", rg: "7654321", 
 
 # Criando visitas
 Visit.create!(visitor: visitor1, sector: sector1, employee: employee1, unit: unit1, visit_time: Time.now)
-Visit.create!(visitor: visitor2, sector: sector2, employee: employee2, unit: unit1, visit_time: Time.now)
+Visit.create!(visitor: visitor2, sector: sector2, employee: employee2, unit: unit2, visit_time: Time.now)
