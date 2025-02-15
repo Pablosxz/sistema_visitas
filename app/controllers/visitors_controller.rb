@@ -77,6 +77,23 @@ class VisitorsController < ApplicationController
     redirect_to visitors_path, alert: "Erro ao ativar visitante: #{e.message}"
   end
 
+  # Busca de visitantes
+  def search
+    cpf = params[:cpf]
+    visitor = Visitor.find_by(cpf: cpf)
+
+    if visitor
+      render json: {
+        id: visitor.id,
+        name: visitor.name,
+        rg: visitor.rg,
+        phone: visitor.phone
+      }
+    else
+      render json: nil
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_visitor

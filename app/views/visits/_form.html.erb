@@ -10,11 +10,27 @@
     </div>
   <% end %>
 
-  <!-- Seleção do Visitante -->
+  <!-- Campo de CPF para consulta -->
   <div>
-    <%= form.label :visitor_id, style: "display: block" %>
-    <%= form.collection_select :visitor_id, Visitor.all, :id, :name, { prompt: "Selecione um visitante" }, { class: "select2" } %>
+    <%= form.label :cpf, "CPF do Visitante", style: "display: block" %>
+    <%= form.text_field :cpf, id: "visitor_cpf" %>
   </div>
+
+  <!-- Campos para os dados do visitante (serão preenchidos automaticamente) -->
+  <div id="visitor_details" style="display: none;">
+    <div>
+      <strong>Nome:</strong> <span id="visitor_name"></span>
+    </div>
+    <div>
+      <strong>RG:</strong> <span id="visitor_rg"></span>
+    </div>
+    <div>
+      <strong>Telefone:</strong> <span id="visitor_phone"></span>
+    </div>
+  </div>
+
+  <!-- Campo oculto para enviar o visitor_id -->
+  <%= form.hidden_field :visitor_id, id: "visitor_id" %>
 
   <!-- Campo oculto para enviar a unidade correta -->
   <%= form.hidden_field :unit_id, value: current_user.unit_id %>
@@ -41,3 +57,45 @@
     <%= form.submit "Salvar Visita" %>
   </div>
 <% end %>
+
+<!-- Script para buscar o visitante pelo CPF -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const cpfField = document.getElementById("visitor_cpf");
+    const visitorDetails = document.getElementById("visitor_details");
+    const visitorName = document.getElementById("visitor_name");
+    const visitorRg = document.getElementById("visitor_rg");
+    const visitorPhone = document.getElementById("visitor_phone");
+    const visitorIdField = document.getElementById("visitor_id");
+
+    cpfField.addEventListener("input", function() {
+      const cpf = this.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+      if (cpf.length === 11) { // Verifica se o CPF tem 11 dígitos
+        fetch(`/visitors/search?cpf=${cpf}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data) {
+              // Preenche os campos com os dados do visitante
+              visitorName.textContent = data.name;
+              visitorRg.textContent = data.rg;
+              visitorPhone.textContent = data.phone;
+              visitorIdField.value = data.id;
+              visitorDetails.style.display = "block";
+            } else {
+              // Limpa os campos se o visitante não for encontrado
+              visitorName.textContent = "";
+              visitorRg.textContent = "";
+              visitorPhone.textContent = "";
+              visitorIdField.value = "";
+              visitorDetails.style.display = "none";
+              alert("Visitante não encontrado. Por favor, cadastre-o primeiro.");
+            }
+          })
+          .catch(error => {
+            console.error("Erro ao buscar visitante:", error);
+          });
+      }
+    });
+  });
+</script>

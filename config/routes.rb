@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     root to: 'devise/sessions#new' # Página de login como root padrão
   end
 
+  # Página de busca de visitantes
+  get '/visitors/search', to: 'visitors#search'
+
   # Permite a confirmação de visitas apenas por funcionários (Patch)
   resources :visits do
     member do
