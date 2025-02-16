@@ -39,8 +39,8 @@
       <div class="col-md-4 mb-4">
         <div class="card shadow-sm p-3">
           <h5 class="card-title"><%= employee.name %></h5>
-          <p class="mb-1"><strong>Setor:</strong> <%= employee.sector.name if employee.sector %></p>
-          <p class="mb-1"><strong>Status:</strong> <span class="badge <%= employee.active ? 'bg-success' : 'bg-danger' %>">
+          <p class="mb-1"><i class="bi bi-people-fill"></i> <strong>Setor:</strong><%= employee.sector.name if employee.sector %></p>
+          <p class="mb-1"><i class="bi bi-check-circle"></i> <strong>Status:</strong> <span class="badge <%= employee.active ? 'bg-success' : 'bg-danger' %>">
             <%= employee.active ? "Ativo" : "Inativo" %></span></p>
           <%= link_to "Detalhes", employee, class: "btn btn-primary btn-sm mt-2" %>
         </div>
