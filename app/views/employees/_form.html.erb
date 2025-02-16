@@ -1,47 +1,45 @@
-<%= form_with(model: employee) do |form| %>
+<%= form_with(model: employee, local: true, class: "needs-validation", novalidate: true) do |form| %>
   <% if employee.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
-
+    <div class="alert alert-danger">
+      <h4><%= pluralize(employee.errors.count, "erro") %> impediram o salvamento:</h4>
       <ul>
-        <% employee.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% employee.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, "Nome", class: "form-label" %>
+    <%= form.text_field :name, class: "form-control", required: true %>
   </div>
 
-  <div>
-    <%= form.label :sector_id, style: "display: block" %>
-    <%= form.collection_select :sector_id, Sector.active.all, :id, :name, prompt: true %>
+  <div class="mb-3">
+    <%= form.label :sector_id, "Setor", class: "form-label" %>
+    <%= form.collection_select :sector_id, Sector.active.all, :id, :name, { prompt: "Selecione um setor" }, class: "form-select" %>
   </div>
 
   <strong>Cadastrar Usuário</strong>
 
   <%= form.fields_for :user do |user_fields| %>
-    <div>
-      <%= user_fields.label :email %>
-      <%= user_fields.email_field :email %>
+    <div class="mb-3">
+      <%= user_fields.label :email, "Email", class: "form-label" %>
+      <%= user_fields.email_field :email, class: "form-control", required: true %>
     </div>
 
-    <div>
-      <%= user_fields.label :password %>
-      <%= user_fields.password_field :password %>
+    <div class="mb-3">
+      <%= user_fields.label :password, "Senha", class: "form-label" %>
+      <%= user_fields.password_field :password, class: "form-control", required: true %>
     </div>
 
-    <div>
-      <%= user_fields.label :password_confirmation %>
-      <%= user_fields.password_field :password_confirmation %>
+    <div class="mb-3">
+      <%= user_fields.label :password_confirmation, "Confirmação de Senha", class: "form-label" %>
+      <%= user_fields.password_field :password_confirmation, class: "form-control", required: true %>
     </div>
-
   <% end %>
 
-  <div>
-    <%= form.submit %>
+  <div class="text-center">
+    <%= form.submit "Salvar", class: "btn btn-primary" %>
   </div>
 <% end %>

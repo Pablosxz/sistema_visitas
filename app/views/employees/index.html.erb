@@ -1,16 +1,78 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Funcionários</h1>
 
-<% content_for :title, "Employees" %>
+  <p class="text-success"><%= notice %></p>
 
-<h1>Employees</h1>
+  <!-- Filtros -->
+  <div class="card p-3 mb-4 shadow-sm">
+  <%= form_with url: employees_path, method: :get, local: true, class: "row g-3 align-items-end" do |form| %>
+    <div class="col-md-3">
+      <%= form.label :name, "Nome", class: "form-label" %>
+      <%= form.text_field :name, value: params[:name], class: "form-control", placeholder: "Buscar por nome" %>
+    </div>
 
-<div id="employees">
-  <% @employees.active.each do |employee| %>
-    <%= render employee %>
-    <p>
-      <%= link_to "Show this employee", employee %>
-    </p>
+    <div class="col-md-3">
+      <%= form.label :active, "Status", class: "form-label" %>
+      <%= form.select :active, [["Todos", ""], ["Ativo", "true"], ["Inativo", "false"]], { selected: params[:active] }, class: "form-select" %>
+    </div>
+
+    <div class="col-md-3">
+      <%= form.label :unit_id, "Unidade", class: "form-label" %>
+      <%= form.select :unit_id, options_from_collection_for_select(@units.active, :id, :name, params[:unit_id]), { include_blank: "Todas" }, class: "form-select", id: "unit_select" %>
+    </div>
+
+    <div class="col-md-3">
+      <%= form.label :sector_id, "Setor", class: "form-label" %>
+      <%= form.select :sector_id, options_from_collection_for_select(@sectors.active, :id, :name, params[:sector_id]), { include_blank: "Todos" }, class: "form-select", id: "sector_select" %>
+    </div>
+
+    <div class="col-md-1 d-flex align-items-end">
+      <%= form.submit "Filtrar", class: "btn btn-primary w-100" %>
+    </div>
   <% end %>
 </div>
 
-<%= link_to "New employee", new_employee_path %>
+
+  <!-- Lista de Funcionários -->
+  <div class="row">
+    <% @employees.each do |employee| %>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm p-3">
+          <h5 class="card-title"><%= employee.name %></h5>
+          <p class="mb-1"><strong>Setor:</strong> <%= employee.sector.name if employee.sector %></p>
+          <p class="mb-1"><strong>Status:</strong> <span class="badge <%= employee.active ? 'bg-success' : 'bg-danger' %>">
+            <%= employee.active ? "Ativo" : "Inativo" %></span></p>
+          <%= link_to "Detalhes", employee, class: "btn btn-primary btn-sm mt-2" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <% if can?(:create, Employee) %>
+    <div class="text-center mt-4">
+      <%= link_to "Novo Funcionário", new_employee_path, class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let unitSelect = document.getElementById("unit_select");
+    let sectorSelect = document.getElementById("sector_select");
+    let allSectors = <%= raw @sectors.to_json(only: [:id, :name, :unit_id]) %>;
+
+    unitSelect.addEventListener("change", function() {
+      let selectedUnit = unitSelect.value;
+      sectorSelect.innerHTML = '<option value="">Todos</option>';
+
+      allSectors.forEach(sector => {
+        if (!selectedUnit || sector.unit_id == selectedUnit) {
+          let option = document.createElement("option");
+          option.value = sector.id;
+          option.textContent = sector.name;
+          sectorSelect.appendChild(option);
+        }
+      });
+    });
+  });
+</script>

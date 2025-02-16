@@ -40,11 +40,11 @@ class Employee < ApplicationRecord
 
   # Método para desativar funcionário
   def deactivate!
-    update(active: false)
+    update_column(:active, false)
   end
   
   # Método para ativar funcionário
   def activate!
-    update(active: true)
+    update_column(:active, true)
   end
 end

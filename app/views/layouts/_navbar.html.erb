@@ -1,0 +1,32 @@
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="container">
+    <%= link_to "Home", root_path, class: "nav-link" %>
+
+    <% if user_signed_in? %>
+      <!-- Links para Admin -->
+      <% if current_user.admin? %>
+        <%= link_to "Usuários", users_path, class: "nav-link" %>
+        <%= link_to "Funcionários", employees_path, class: "nav-link" %>
+        <%= link_to "Unidades", units_path, class: "nav-link" %>
+        <%= link_to "Setores", sectors_path, class: "nav-link" %>
+      <% end %>
+
+      <!-- Links para Attendant -->
+      <% if current_user.attendant? %>
+        <%= link_to "Visitantes", visitors_path, class: "nav-link" %>
+        <%= link_to "Visitas", visits_path, class: "nav-link" %>
+      <% end %>
+
+      <!-- Links para Funcionário -->
+      <% if current_user.employee? %>
+        <%= link_to "Visitas", visits_path, class: "nav-link" %>
+      <% end %>
+
+      <span>Welcome, <%= current_user.email %>!</span>
+      <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</nav>

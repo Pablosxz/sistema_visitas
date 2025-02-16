@@ -31,21 +31,59 @@
   </head>
 
   <body>
-    <!-- Navbar -->
-    <nav class="navbar">
+    
+    <!-- Barra de navegação -->
+    <%= render "layouts/navbar" %>
+
+    <!-- Conteúdo da página -->
+    <div style="margin-bottom: 50px;">
+      <%= yield %>
+    </div>
+
+    <footer class="footer mt-auto py-3 bg-light">
       <div class="container">
-        <%= link_to "Home", root_path, class: "nav-link" %>
+        <div class="row">
+          <!-- Coluna 1: Sobre o sistema -->
+          <div class="col-md-4 mb-3">
+            <h5>Sistema de Visitas</h5>
+            <p class="text-muted">
+              Um sistema completo para gerenciar visitas com funcionários, unidades e setores em uma empresa.
+            </p>
+          </div>
 
-        <% if user_signed_in? %>
-          <span>Welcome, <%= current_user.email %>!</span>
-          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
-        <% else %>
-          <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %>
-        <% end %>
+          <!-- Coluna 2: Links úteis -->
+          <div class="col-md-4 mb-3">
+            <h5>Links Úteis</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-decoration-none text-muted">Página Inicial</a></li>
+              <li><a href="https://github.com/Pablosxz" class="text-decoration-none text-muted">Sobre Nós</a></li>
+              <li><a href="https://github.com/Pablosxz" class="text-decoration-none text-muted">Contato</a></li>
+              <li><a href="https://github.com/Pablosxz" class="text-decoration-none text-muted">Política de Privacidade</a></li>
+            </ul>
+          </div>
+
+          <!-- Coluna 3: Contato -->
+          <div class="col-md-4 mb-3">
+            <h5>Contato</h5>
+            <ul class="list-unstyled">
+              <li class="text-muted">Email: lucasrn03@gmail.com</li>
+              <li class="text-muted">Telefone: (11) 1234-5678</li>
+              <li class="text-muted">Endereço: Rua Exemplo, 123 - Mossoró, RN</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Rodapé inferior -->
+        <div class="row">
+          <div class="col-12 text-center">
+            <hr class="my-3">
+            <p class="text-muted mb-0">
+              &copy; 2025 Sistema de Visitas. Todos os direitos reservados.
+            </p>
+          </div>
+        </div>
       </div>
-  </nav>
-
-    <%= yield %>
+    </footer>
 
     <!-- Bootstrap script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

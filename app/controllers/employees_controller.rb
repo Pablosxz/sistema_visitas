@@ -12,9 +12,23 @@ class EmployeesController < ApplicationController
     redirect_to employees_path, alert: "Erro ao desativar funcionário: #{e.message}"
   end
 
+  def activate
+    @employee = Employee.find(params[:id])
+    @employee.activate!
+    redirect_to employees_path, notice: "Funcionário ativado com sucesso."
+  end
+
   # GET /employees or /employees.json
   def index
-    @employees = Employee.all
+    @employees = Employee.includes(:sector).all
+    @units = Unit.all # Para preencher o dropdown de unidades
+    @sectors = Sector.all # Para preencher o dropdown de setores
+
+    # Aplicando filtros
+    @employees = @employees.where("name ILIKE ?", "%#{params[:name]}%") if params[:name].present?
+    @employees = @employees.where(active: params[:active] == "true") if params[:active].present?
+    @employees = @employees.joins(:sector).where(sectors: { unit_id: params[:unit_id] }) if params[:unit_id].present?
+    @employees = @employees.where(sector_id: params[:sector_id]) if params[:sector_id].present?
   end
 
   # GET /employees/1 or /employees/1.json

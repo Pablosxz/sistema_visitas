@@ -1,12 +1,16 @@
-<% content_for :title, "Editing employee" %>
+<% content_for :title, "Editar Funcionário" %>
 
-<h1>Editing employee</h1>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Editar Funcionário</h1>
 
-<%= render "form", employee: @employee %>
+  <div class="card shadow">
+    <div class="card-body">
+      <%= render "form", employee: @employee %>
+    </div>
+  </div>
 
-<br>
-
-<div>
-  <%= link_to "Show this employee", @employee %> |
-  <%= link_to "Back to employees", employees_path %>
+  <div class="text-center mt-4">
+    <%= link_to "Ver detalhes", @employee, class: "btn btn-info" %> |
+    <%= link_to "Voltar", employees_path, class: "btn btn-secondary" %>
+  </div>
 </div>

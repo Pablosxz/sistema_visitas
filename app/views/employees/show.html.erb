@@ -7,4 +7,5 @@
   <%= link_to "Back to employees", employees_path %>
 
   <%= button_to "Desativar este funcionário", deactivate_employee_path(@employee), method: :patch if @employee.active %>
+  <%= button_to "Ativar este funcionário", activate_employee_path(@employee), method: :patch unless @employee.active %>
 </div>

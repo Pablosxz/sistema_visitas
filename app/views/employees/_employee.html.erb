@@ -1,22 +1,10 @@
 <div id="<%= dom_id employee %>">
-  <p>
-    <strong>Name:</strong>
-    <%= employee.name %>
-  </p>
-
-  <p>
-  <strong>Active:</strong>
-  <%= employee.active ? "Ativo" : "Inativo" %>
-  </p>
-
-  <p>
-    <strong>Sector:</strong>
-    <%= employee.sector_id %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= employee.user_id %>
-  </p>
-
+  <p><strong>Nome:</strong> <%= employee.name %></p>
+  <p><strong>Status:</strong> <%= employee.active ? "Ativo" : "Inativo" %></p>
+  <p><strong>Setor:</strong> <%= employee.sector.name %></p>
+  <% if employee.user.present? %>
+    <p><strong>Usuário:</strong> <%= employee.user.email %></p>
+  <% else %>
+    <p><strong>Usuário:</strong> Desativado</p>
+  <% end %>
 </div>
