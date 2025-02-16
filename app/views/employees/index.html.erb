@@ -1,59 +1,69 @@
-<div class="container mt-4">
-  <h1 class="text-center mb-4">Funcionários</h1>
+<div class="employees-container">
+  <h1 class="text-center employees-title">Funcionários</h1>
 
   <p class="text-success"><%= notice %></p>
 
   <!-- Filtros -->
-  <div class="card p-3 mb-4 shadow-sm">
-  <%= form_with url: employees_path, method: :get, local: true, class: "row g-3 align-items-end" do |form| %>
-    <div class="col-md-3">
-      <%= form.label :name, "Nome", class: "form-label" %>
-      <%= form.text_field :name, value: params[:name], class: "form-control", placeholder: "Buscar por nome" %>
-    </div>
+  <div class="employees-filter">
+    <%= form_with url: employees_path, method: :get, local: true, class: "row g-3 align-items-end" do |form| %>
+      <div class="col-lg-3 col-md-6">
+        <%= form.label :name, "Nome", class: "form-label" %>
+        <%= form.text_field :name, value: params[:name], class: "form-control", placeholder: "Buscar por nome" %>
+      </div>
 
-    <div class="col-md-3">
-      <%= form.label :active, "Status", class: "form-label" %>
-      <%= form.select :active, [["Todos", ""], ["Ativo", "true"], ["Inativo", "false"]], { selected: params[:active] }, class: "form-select" %>
-    </div>
+      <div class="col-lg-2 col-md-6">
+        <%= form.label :active, "Status", class: "form-label" %>
+        <%= form.select :active, [["Todos", ""], ["Ativo", "true"], ["Inativo", "false"]], { selected: params[:active] }, class: "form-select" %>
+      </div>
 
-    <div class="col-md-3">
-      <%= form.label :unit_id, "Unidade", class: "form-label" %>
-      <%= form.select :unit_id, options_from_collection_for_select(@units.active, :id, :name, params[:unit_id]), { include_blank: "Todas" }, class: "form-select", id: "unit_select" %>
-    </div>
+      <div class="col-lg-3 col-md-6">
+        <%= form.label :unit_id, "Unidade", class: "form-label" %>
+        <%= form.select :unit_id, options_from_collection_for_select(@units.active, :id, :name, params[:unit_id]), { include_blank: "Todas" }, class: "form-select" %>
+      </div>
 
-    <div class="col-md-3">
-      <%= form.label :sector_id, "Setor", class: "form-label" %>
-      <%= form.select :sector_id, options_from_collection_for_select(@sectors.active, :id, :name, params[:sector_id]), { include_blank: "Todos" }, class: "form-select", id: "sector_select" %>
-    </div>
+      <div class="col-lg-3 col-md-6">
+        <%= form.label :sector_id, "Setor", class: "form-label" %>
+        <%= form.select :sector_id, options_from_collection_for_select(@sectors.active, :id, :name, params[:sector_id]), { include_blank: "Todos" }, class: "form-select" %>
+      </div>
 
-    <div class="col-md-1 d-flex align-items-end">
-      <%= form.submit "Filtrar", class: "btn btn-primary w-100" %>
-    </div>
-  <% end %>
-</div>
-
-
-  <!-- Lista de Funcionários -->
-  <div class="row">
-    <% @employees.each do |employee| %>
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm p-3">
-          <h5 class="card-title"><%= employee.name %></h5>
-          <p class="mb-1"><i class="bi bi-people-fill"></i> <strong>Setor:</strong><%= employee.sector.name if employee.sector %></p>
-          <p class="mb-1"><i class="bi bi-check-circle"></i> <strong>Status:</strong> <span class="badge <%= employee.active ? 'bg-success' : 'bg-danger' %>">
-            <%= employee.active ? "Ativo" : "Inativo" %></span></p>
-          <%= link_to "Detalhes", employee, class: "btn btn-primary btn-sm mt-2" %>
-        </div>
+      <div class="col-lg-1 d-flex align-items-end">
+        <%= form.submit "Filtrar", class: "btn btn-primary w-100" %>
       </div>
     <% end %>
   </div>
 
-  <% if can?(:create, Employee) %>
-    <div class="text-center mt-4">
-      <%= link_to "Novo Funcionário", new_employee_path, class: "btn btn-success" %>
+  <!-- Lista de Funcionários -->
+<div class="employees-list">
+  <% @employees.each do |employee| %>
+    <div class="employees-card">
+      <h5 class="employees-name"><%= employee.name %></h5>
+      
+      <div class="employees-info">
+        <p>
+          <i class="bi bi-people-fill"></i> <strong>Setor:</strong> <%= employee.sector.name if employee.sector %>
+        </p>
+        <p>
+          <i class="bi bi-check-circle"></i> <strong>Status:</strong>
+          <span class="employees-status <%= employee.active ? 'active' : 'inactive' %>">
+            <%= employee.active ? "Ativo" : "Inativo" %>
+          </span>
+        </p>
+      </div>
+      
+      <div class="employees-card-footer">
+        <%= link_to "Detalhes", employee, class: "btn employees-btn" %>
+      </div>
     </div>
   <% end %>
 </div>
+
+<% if can?(:create, Employee) %>
+  <div class="text-center">
+    <%= link_to "Novo Funcionário", new_employee_path, class: "btn employees-add-btn" %>
+  </div>
+<% end %>
+</div>
+
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
