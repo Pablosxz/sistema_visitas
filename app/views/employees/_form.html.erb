@@ -20,7 +20,7 @@
     <%= form.collection_select :sector_id, Sector.active.all, :id, :name, { prompt: "Selecione um setor" }, class: "form-select" %>
   </div>
 
-  <strong>Cadastrar Usuário</strong>
+  <strong>Usuário no Sistema</strong>
 
   <%= form.fields_for :user do |user_fields| %>
     <div class="mb-3">
@@ -37,7 +37,12 @@
       <%= user_fields.label :password_confirmation, "Confirmação de Senha", class: "form-label" %>
       <%= user_fields.password_field :password_confirmation, class: "form-control", required: true %>
     </div>
+
+    <%= user_fields.hidden_field :role, value: "employee" %>
+
   <% end %>
+
+
 
   <div class="text-center">
     <%= form.submit "Salvar", class: "btn btn-primary" %>

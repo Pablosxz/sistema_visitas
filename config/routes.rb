@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     member do
       patch :deactivate
       patch :activate
+      get :reactivate
     end
   end
 

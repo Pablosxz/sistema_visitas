@@ -15,7 +15,12 @@ class EmployeesController < ApplicationController
   def activate
     @employee = Employee.find(params[:id])
     @employee.activate!
-    redirect_to employees_path, notice: "Funcionário ativado com sucesso."
+    redirect_to reactivate_employee_path(@employee), notice: "Funcionário ativado com sucesso."
+  end
+
+  def reactivate
+    @employee = Employee.find(params[:id])
+    @employee.build_user(role: 2) if @employee.user.nil?  # Garante que um novo usuário seja criado
   end
 
   # GET /employees or /employees.json
@@ -97,7 +102,7 @@ class EmployeesController < ApplicationController
 
     def employee_params
       params.expect(employee: [ :name, :sector_id, :user_id, :active,
-      user_attributes: [:id, :email, :password, :password_confirmation] # Permite atributos aninhados para o usuário
+      user_attributes: [:id, :email, :password, :password_confirmation, :role] # Permite atributos aninhados para o usuário
     ])
     end
 end
