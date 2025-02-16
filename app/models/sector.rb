@@ -18,11 +18,11 @@ class Sector < ApplicationRecord
   end
 
   def deactivate!
-    update_column(:active, false)
+    update(active: false)
   end
 
   def activate!
-    update_column(:active, true)
+    update(active: true)
   end
 
   def deactivate_employees_if_inactive

@@ -17,11 +17,11 @@ class Unit < ApplicationRecord
     end
 
     def deactivate!
-        update_column(:active, false)
+        update(active: false)
     end
 
     def activate!
-        update_column(:active, true)
+        update(active: true)
     end
 
     # Método para desativar os setores e atendentes associados junto com a unidade

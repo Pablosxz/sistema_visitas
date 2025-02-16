@@ -32,7 +32,7 @@ class Employee < ApplicationRecord
     if self.user.present?
       ActiveRecord::Base.transaction do
         user = self.user
-        self.update_column(:user_id, nil) # Define user_id como nil sem validações ou callbacks
+        self.update(user_id: nil) # Define user_id como nil
         user.destroy! # Destroi o usuário
       end
     end
@@ -40,11 +40,11 @@ class Employee < ApplicationRecord
 
   # Método para desativar funcionário
   def deactivate!
-    update_column(:active, false)
+    update(active: false)
   end
   
   # Método para ativar funcionário
   def activate!
-    update_column(:active, true)
+    update(active: true)
   end
 end

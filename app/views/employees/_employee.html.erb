@@ -1,10 +1,17 @@
-<div id="<%= dom_id employee %>">
-  <p><strong>Nome:</strong> <%= employee.name %></p>
-  <p><strong>Status:</strong> <%= employee.active ? "Ativo" : "Inativo" %></p>
-  <p><strong>Setor:</strong> <%= employee.sector.name %></p>
-  <% if employee.user.present? %>
-    <p><strong>Usuário:</strong> <%= employee.user.email %></p>
-  <% else %>
-    <p><strong>Usuário:</strong> Desativado</p>
-  <% end %>
+<div id="<%= dom_id employee %>" class="card shadow-sm p-3 mb-3">
+  <div class="card-body">
+    <h3 class="card-title"><%= employee.name %></h3>
+    <p class="card-text"><strong>Status:</strong> 
+      <span class="badge <%= employee.active ? 'bg-success' : 'bg-danger' %>">
+        <%= employee.active ? "Ativo" : "Inativo" %>
+      </span>
+    </p>
+    <p class="card-text"><strong>Setor:</strong> <%= employee.sector.name %></p>
+    
+    <% if employee.user.present? %>
+      <p class="card-text"><strong>Usuário:</strong> <%= employee.user.email %></p>
+    <% else %>
+      <p class="card-text"><strong>Usuário:</strong> <span class="text-muted">Desativado</span></p>
+    <% end %>
+  </div>
 </div>

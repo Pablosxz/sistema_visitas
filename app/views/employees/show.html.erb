@@ -1,11 +1,18 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-4">
+  <% if notice.present? %>
+    <div class="alert alert-success"><%= notice %></div>
+  <% end %>
 
-<%= render @employee %>
+  <%= render @employee %>
 
-<div>
-  <%= link_to "Edit this employee", edit_employee_path(@employee) %> |
-  <%= link_to "Back to employees", employees_path %>
+  <div class="mt-3">
+    <%= link_to "Edit this employee", edit_employee_path(@employee), class: "btn btn-warning" %>
+    <%= link_to "Back to employees", employees_path, class: "btn btn-secondary" %>
 
-  <%= button_to "Desativar este funcionário", deactivate_employee_path(@employee), method: :patch if @employee.active %>
-  <%= button_to "Ativar este funcionário", activate_employee_path(@employee), method: :patch unless @employee.active %>
+    <% if @employee.active %>
+      <%= button_to "Desativar este funcionário", deactivate_employee_path(@employee), method: :patch, class: "btn btn-danger" %>
+    <% else %>
+      <%= button_to "Ativar este funcionário", activate_employee_path(@employee), method: :patch, class: "btn btn-success" %>
+    <% end %>
+  </div>
 </div>
