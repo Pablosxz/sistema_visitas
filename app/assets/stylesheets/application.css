@@ -1,6 +1,15 @@
 @import "sidebar.css";
+
 @import "login.css";
+
 @import "users/index.css";
+
 @import "employees/index.css";
+
 @import "units/index.css";
+
 @import "visits/index.css";
+@import "visits/show.css";
+
+@import "visitors/index.css";
+@import "visitors/show.css";

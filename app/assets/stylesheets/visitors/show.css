@@ -1,0 +1,38 @@
+/* ======== Estilização do Card ======== */
+.card {
+    border-radius: 10px;
+  }
+  
+  /* ======== Foto do Visitante ======== */
+  .visitor-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 4px solid #0d6efd;
+    padding: 3px;
+  }
+  
+  .visitor-photo-placeholder {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* ======== Badges de Status ======== */
+  .badge.bg-success {
+    background-color: #198754 !important;
+  }
+  
+  .badge.bg-danger {
+    background-color: #dc3545 !important;
+  }
+  
+  /* ======== Botões com Ícones ======== */
+  .btn i {
+    margin-right: 5px;
+  }
+  

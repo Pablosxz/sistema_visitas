@@ -1,0 +1,50 @@
+/* ======== Estilização dos Cards de Visitantes ======== */
+.visitor-card {
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+  
+  .visitor-card:hover {
+    transform: scale(1.02);
+  }
+  
+  /* ======== Foto do Visitante ======== */
+  .visitor-photo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid #0d6efd;
+    padding: 2px;
+  }
+  
+  .visitor-photo-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* ======== Barra de Pesquisa ======== */
+  .form-control {
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  /* ======== Badges de Status ======== */
+  .badge.bg-success {
+    background-color: #198754 !important;
+    padding: 5px 10px;
+  }
+  
+  .badge.bg-danger {
+    background-color: #dc3545 !important;
+  }
+  
+  /* ======== Botões com Ícones ======== */
+  .btn i {
+    margin-right: 5px;
+  }
+  

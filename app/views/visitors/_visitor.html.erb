@@ -1,21 +1,35 @@
-<div id="<%= dom_id visitor %>" class="card shadow-sm p-3 mb-4 bg-white rounded">
+<div id="<%= dom_id visitor %>" class="card shadow-lg p-4 bg-white rounded">
   <div class="card-body text-center">
-    <h5 class="card-title text-primary"><%= visitor.name %></h5>
+    <h4 class="card-title text-primary"><i class="bi bi-person-badge"></i> <%= visitor.name %></h4>
 
     <div class="d-flex justify-content-center mb-3">
       <% if visitor.photo.present? %>
-        <%= image_tag visitor.photo.url, alt: "Foto do Visitante", class: "rounded-circle img-thumbnail", style: "width: 150px; height: 150px; object-fit: cover;" %>
+        <img src="<%= visitor.photo.url %>" alt="Foto de <%= visitor.name %>" 
+          class="rounded-circle visitor-photo">
       <% else %>
-        <div class="text-muted">Nenhuma foto disponível</div>
+        <div class="visitor-photo-placeholder">
+          <i class="bi bi-person-circle text-secondary" style="font-size: 80px;"></i>
+        </div>
       <% end %>
     </div>
 
     <ul class="list-group list-group-flush text-start">
-      <li class="list-group-item"><strong>CPF:</strong> <%= visitor.cpf %></li>
-      <li class="list-group-item"><strong>RG:</strong> <%= visitor.rg %></li>
-      <li class="list-group-item"><strong>Telefone:</strong> <%= visitor.phone %></li>
-      <li class="list-group-item"><strong>Status:</strong> <span class="<%= visitor.active? ? 'text-success' : 'text-danger' %>">
-        <%= visitor.active? ? "Ativo" : "Inativo" %></span>
+      <li class="list-group-item">
+        <i class="bi bi-card-text"></i> <strong>CPF:</strong> <%= visitor.cpf %>
+      </li>
+      <li class="list-group-item">
+        <i class="bi bi-credit-card-2-front"></i> <strong>RG:</strong> <%= visitor.rg %>
+      </li>
+      <li class="list-group-item">
+        <i class="bi bi-telephone"></i> <strong>Telefone:</strong> <%= visitor.phone %>
+      </li>
+      <li class="list-group-item">
+        <i class="bi bi-info-circle"></i> <strong>Status:</strong>
+        <span class="badge <%= visitor.active? ? 'bg-success' : 'bg-danger' %>">
+          <i class="bi <%= visitor.active? ? 'bi-check-circle' : 'bi-x-circle' %>"></i> 
+          <%= visitor.active? ? "Ativo" : "Inativo" %>
+        </span>
+      </li>
     </ul>
   </div>
 </div>

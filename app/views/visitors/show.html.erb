@@ -11,18 +11,27 @@
     </div>
   </div>
 
-  <div class="text-center mt-3">
-    <%= link_to "Editar", edit_visitor_path(@visitor), class: "btn btn-warning mx-2" %>
-    <%= link_to "Voltar", visitors_path, class: "btn btn-secondary mx-2" %>
+  <div class="text-center mt-4">
+    <%= link_to edit_visitor_path(@visitor), class: "btn btn-warning mx-2" do %>
+      <i class="bi bi-pencil-square"></i> Editar
+    <% end %>
+
+    <%= link_to visitors_path, class: "btn btn-secondary mx-2" do %>
+      <i class="bi bi-arrow-left"></i> Voltar
+    <% end %>
 
     <% if @visitor.active %>
-      <%= button_to "Desativar", deactivate_visitor_path(@visitor), method: :patch, 
+      <%= button_to deactivate_visitor_path(@visitor), method: :patch, 
         data: { confirm: "Tem certeza que deseja desativar este visitante?" }, 
-        class: "btn btn-danger mx-2" %>
+        class: "btn btn-danger mx-2" do %>
+        <i class="bi bi-x-circle"></i> Desativar
+      <% end %>
     <% else %>
-      <%= button_to "Ativar", activate_visitor_path(@visitor), method: :patch, 
+      <%= button_to activate_visitor_path(@visitor), method: :patch, 
         data: { confirm: "Tem certeza que deseja ativar este visitante?" }, 
-        class: "btn btn-success mx-2" %>
+        class: "btn btn-success mx-2" do %>
+        <i class="bi bi-check-circle"></i> Ativar
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -1,45 +1,61 @@
 <div class="container mt-4">
-  <h1 class="text-center mb-4">Visitantes</h1>
+  <h1 class="text-center mb-4"><i class="bi bi-people-fill"></i> Visitantes</h1>
 
   <!-- Formulário de Filtro e Pesquisa -->
-  <div class="mb-4">
-    <%= form_with url: visitors_path, method: :get, local: true, class: "d-flex gap-2" do |form| %>
-      <%= form.label :search, "Pesquisar:", class: "visually-hidden" %>
-      <%= form.text_field :search, value: params[:search], placeholder: "Buscar por nome...", class: "form-control w-50" %>
+  <div class="card p-3 mb-4 shadow-sm">
+    <%= form_with url: visitors_path, method: :get, local: true, class: "row g-3 align-items-end" do |form| %>
+      <div class="col-md-6">
+        <%= form.text_field :search, value: params[:search], placeholder: "Buscar por nome...", class: "form-control" %>
+      </div>
 
-      <%= form.label :status, "Filtrar por:", class: "visually-hidden" %>
-      <%= form.select :status, [["Todos", ""], ["Ativos", "active"], ["Inativos", "inactive"]], 
-          selected: params[:status], class: "form-select" %>
+      <div class="col-md-4">
+        <%= form.select :status, [["Todos", ""], ["Ativos", "active"], ["Inativos", "inactive"]], 
+    { selected: params[:status] }, { class: "form-select" } %>
+      </div>
 
-      <%= form.submit "Filtrar", class: "btn btn-primary" %>
+      <div class="col-md-2">
+        <%= form.submit "Filtrar", class: "btn btn-primary w-100" %>
+      </div>
     <% end %>
   </div>
 
   <div class="row g-4">
     <% @visitors.each do |visitor| %>
       <div class="col-md-4">
-        <div class="card shadow-sm text-center p-3">
+        <div class="card visitor-card shadow-sm text-center p-3">
           <% if visitor.photo.present? %>
             <div class="d-flex justify-content-center">
-              <img src="<%= visitor.photo.url %>" class="rounded-circle" alt="Visitor Photo" 
-                style="width: 120px; height: 120px; object-fit: cover;">
+              <img src="<%= visitor.photo.url %>" class="rounded-circle visitor-photo" alt="Foto de <%= visitor.name %>">
             </div>
           <% else %>
-            <div class="d-flex justify-content-center align-items-center bg-light rounded-circle" 
-              style="width: 120px; height: 120px;">
-              No Photo
+            <div class="d-flex justify-content-center align-items-center visitor-photo-placeholder">
+              <i class="bi bi-person-circle text-secondary" style="font-size: 60px;"></i>
             </div>
           <% end %>
+
           <div class="card-body">
-            <h5 class="card-title"><%= visitor.name %></h5>
-            <p class="card-text"><strong>CPF:</strong> <%= visitor.cpf %></p>
-            <p class="card-text"><strong>RG:</strong> <%= visitor.rg %></p>
-            <p class="card-text"><strong>Phone:</strong> <%= visitor.phone %></p>
-            <p class="list-group-item"><strong>Status:</strong> <span class="<%= visitor.active? ? 'text-success' : 'text-danger' %>">
-        <%= visitor.active? ? "Ativo" : "Inativo" %></span></p>
+            <h5 class="card-title text-primary"><i class="bi bi-person-badge"></i> <%= visitor.name %></h5>
+            
+            <p class="card-text"><i class="bi bi-card-text"></i> <strong>CPF:</strong> <%= visitor.cpf %></p>
+            <p class="card-text"><i class="bi bi-credit-card-2-front"></i> <strong>RG:</strong> <%= visitor.rg %></p>
+            <p class="card-text"><i class="bi bi-telephone"></i> <strong>Telefone:</strong> <%= visitor.phone %></p>
+
+            <p class="card-text">
+              <i class="bi bi-check-circle"></i> 
+              <strong>Status:</strong> 
+              <span class="badge <%= visitor.active? ? 'bg-success' : 'bg-danger' %>">
+                <%= visitor.active? ? "Ativo" : "Inativo" %>
+              </span>
+            </p>
+
             <div class="d-flex justify-content-between">
-              <%= link_to "Detalhes", visitor, class: "btn btn-primary btn-sm" %>
-              <%= link_to "Editar", edit_visitor_path(visitor), class: "btn btn-warning btn-sm" %>
+              <%= link_to visitor, class: "btn btn-primary btn-sm" do %>
+                <i class="bi bi-eye"></i> Detalhes
+              <% end %>
+
+              <%= link_to edit_visitor_path(visitor), class: "btn btn-warning btn-sm" do %>
+                <i class="bi bi-pencil-square"></i> Editar
+              <% end %>
             </div>
           </div>
         </div>
@@ -48,6 +64,8 @@
   </div>
 
   <div class="text-center mt-4">
-    <%= link_to "Novo Visitante", new_visitor_path, class: "btn btn-success" %>
+    <%= link_to new_visitor_path, class: "btn btn-success" do %>
+      <i class="bi bi-person-plus"></i> Novo Visitante
+    <% end %>
   </div>
 </div>
