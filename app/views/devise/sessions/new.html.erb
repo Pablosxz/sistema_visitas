@@ -1,5 +1,11 @@
 <div class="login-container">
   <div class="login-card">
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
     <h2 class="login-title text-center">Login</h2>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "login-form" }) do |f| %>

@@ -4,11 +4,6 @@
   </div>
 
   <ul class="nav flex-column">
-    <li class="nav-item">
-      <%= link_to root_path, class: "nav-link" do %>
-        <i class="fas fa-home"></i> Início
-      <% end %>
-    </li>
 
     <% if user_signed_in? %>
       <% if current_user.admin? %>
