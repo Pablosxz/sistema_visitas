@@ -47,3 +47,13 @@
 .devise-links a:hover {
   text-decoration: underline;
 }
+
+/* Estilo para a mensagem de flash */
+.alert-danger {
+  margin-bottom: 20px; /* Espaçamento abaixo da mensagem */
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f8d7da; /* Cor de fundo para alertas de erro */
+  color: #721c24; /* Cor do texto */
+  border: 1px solid #f5c6cb; /* Borda */
+}
