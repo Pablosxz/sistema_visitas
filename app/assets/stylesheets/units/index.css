@@ -1,0 +1,174 @@
+/* ======== Página de Unidades ======== */
+.units-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #0d6efd;
+    margin-bottom: 20px;
+  }
+  
+  /* ======== Barra de Pesquisa ======== */
+  .units-search {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .units-search-input {
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .units-search-btn {
+    background: #0d6efd;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .units-search-btn:hover {
+    background: #084298;
+  }
+  
+  /* ======== Filtros ======== */
+  .units-filters {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  
+  .units-filter-link {
+    padding: 8px 15px;
+    text-decoration: none;
+    color: #0d6efd;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  .units-filter-link:hover {
+    background: #0d6efd;
+    color: white;
+  }
+  
+  .units-filter-link.active {
+    background: #0d6efd;
+    color: white;
+  }
+  
+  /* ======== Cartões de Unidades ======== */
+  .units-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .units-card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: left;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #0d6efd;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 180px;
+  }
+  
+  .units-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .units-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0d6efd;
+    margin-bottom: 8px;
+  }
+  
+  .units-status {
+    font-size: 14px;
+    margin: 4px 0;
+    color: #333;
+  }
+  
+  .units-status .active {
+    background-color: #28a745;
+    padding: 3px 8px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .units-status .inactive {
+    background-color: #dc3545;
+    padding: 3px 8px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* ======== Botões de Ação ======== */
+  .units-card-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+  
+  .units-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+    display: inline-block;
+  }
+  
+  .units-btn.view {
+    background: #0d6efd;
+  }
+  
+  .units-btn.view:hover {
+    background: #084298;
+  }
+  
+  .units-btn.edit {
+    background: #ffc107;
+    color: black;
+  }
+  
+  .units-btn.edit:hover {
+    background: #d39e00;
+  }
+  
+  /* ======== Botão Nova Unidade ======== */
+  .units-new-btn-container {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .units-new-btn {
+    background: #198754;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s ease;
+  }
+  
+  .units-new-btn:hover {
+    background: #146c43;
+    transform: scale(1.05);
+  }
+  
