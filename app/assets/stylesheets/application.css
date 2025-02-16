@@ -9,3 +9,4 @@
  * Consider organizing styles into separate files for maintainability.
  */
 @import "navbar.css";
+@import "login.css";
