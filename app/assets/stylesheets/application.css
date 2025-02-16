@@ -8,5 +8,6 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
-@import "navbar.css";
+@import "sidebar.css";
 @import "login.css";
+@import "users/index.css";

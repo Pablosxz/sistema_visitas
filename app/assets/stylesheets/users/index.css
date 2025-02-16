@@ -1,0 +1,131 @@
+/* ======== Estilização Geral da Página de Usuários ======== */
+.users-page {
+    background-color: #f8f9fa; /* Azul bem claro */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  /* ======== Cabeçalho ======== */
+  .users-header h1 {
+    color: #1e3a8a;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* ======== Filtros de Usuário ======== */
+  .users-filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .users-filter-btn {
+    background: white;
+    color: #1e3a8a;
+    border: 2px solid #1e3a8a;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .users-filter-btn:hover, 
+  .users-filter-btn.active {
+    background: #1e3a8a;
+    color: white;
+  }
+  
+  /* ======== Tabela ======== */
+  .users-table-container {
+    overflow-x: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .users-table thead {
+    background: #1e3a8a;
+    color: white;
+    text-align: center;
+  }
+  
+  .users-table th, 
+  .users-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .users-table tbody tr:hover {
+    background: #f0f5ff; /* Azul claro ao passar o mouse */
+  }
+  
+  /* ======== Ajuste na Coluna de Ações ======== */
+.actions {
+    text-align: center;
+  }
+  
+  .users-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  /* ======== Botões com Ícones ======== */
+  .users-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+  }
+  
+  .users-btn i {
+    color: white;
+  }
+  
+  /* Botão Editar */
+  .users-btn.edit {
+    background: #ffc107;
+  }
+  
+  /* Botão Excluir */
+  .users-btn.delete {
+    background: #dc3545;
+  }
+  
+  .users-btn.delete.disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  /* Efeito Hover */
+  .users-btn:hover {
+    opacity: 0.8;
+  }
+  
+  .users-btn.create {
+    background: #198754;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+  }

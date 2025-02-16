@@ -1,24 +1,26 @@
 <% content_for :title, "Usuários" %>
 
-<div class="container mt-4">
-  <h1 class="text-center mb-4">Usuários</h1>
+<div class="users-page">
+  <div class="users-header">
+    <h1>Usuários</h1>
+  </div>
 
-  <!-- Filtro por tipo de usuário -->
-  <div class="d-flex justify-content-center flex-wrap gap-2 mb-3">
-    <%= link_to "Todos", users_path(role: nil), class: "btn #{params[:role].blank? ? 'btn-primary' : 'btn-outline-primary'}" %>
-    <%= link_to "Administradores", users_path(role: 'admin'), class: "btn #{params[:role] == 'admin' ? 'btn-primary' : 'btn-outline-primary'}" %>
-    <%= link_to "Atendentes", users_path(role: 'attendant'), class: "btn #{params[:role] == 'attendant' ? 'btn-primary' : 'btn-outline-primary'}" %>
-    <%= link_to "Funcionários", users_path(role: 'employee'), class: "btn #{params[:role] == 'employee' ? 'btn-primary' : 'btn-outline-primary'}" %>
+  <!-- Filtros por Tipo de Usuário -->
+  <div class="users-filters">
+    <%= link_to "Todos", users_path(role: nil), class: "users-filter-btn #{params[:role].blank? ? 'active' : ''}" %>
+    <%= link_to "Administradores", users_path(role: 'admin'), class: "users-filter-btn #{params[:role] == 'admin' ? 'active' : ''}" %>
+    <%= link_to "Atendentes", users_path(role: 'attendant'), class: "users-filter-btn #{params[:role] == 'attendant' ? 'active' : ''}" %>
+    <%= link_to "Funcionários", users_path(role: 'employee'), class: "users-filter-btn #{params[:role] == 'employee' ? 'active' : ''}" %>
   </div>
 
   <!-- Tabela de Usuários -->
-  <div class="table-responsive">
-    <table class="table table-striped table-bordered table-hover">
-      <thead class="table-dark text-center">
+  <div class="users-table-container">
+    <table class="users-table">
+      <thead>
         <tr>
           <th>Email</th>
           <th>Papel</th>
-          <th style="width: 220px;">Ações</th>
+          <th class="actions-column">Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -26,28 +28,34 @@
           <tr>
             <td><%= user.email %></td>
             <td><%= user.role.humanize %></td>
-            <td class="text-center">
-              <div class="btn-group" role="group">
-                <%= link_to "Editar", edit_user_path(user), class: "btn btn-warning btn-sm" %>
-                
+            <td class="actions">
+              <div class="users-actions">
+                <%= link_to edit_user_path(user), class: "users-btn edit", title: "Editar" do %>
+                  <i class="bi bi-pencil-square"></i>
+                <% end %>
+
                 <% if user.role == 'employee' %>
-                  <button class="btn btn-danger btn-sm ms-1" disabled title="Funcionários não podem ser excluídos">
-                    Excluir
+                  <button class="users-btn delete disabled" disabled title="Funcionários não podem ser excluídos">
+                    <i class="bi bi-trash"></i>
                   </button>
                 <% else %>
-                  <%= button_to "Excluir", user_path(user), method: :delete, 
+                  <%= button_to user_path(user), method: :delete, 
                         data: { confirm: "Tem certeza?" }, 
-                        class: "btn btn-danger btn-sm ms-1" %>
+                        class: "users-btn delete", title: "Excluir" do %>
+                    <i class="bi bi-trash"></i>
+                  <% end %>
                 <% end %>
               </div>
             </td>
           </tr>
         <% end %>
       </tbody>
+
     </table>
   </div>
 
-  <div class="text-center mt-3">
-    <%= link_to "Novo Usuário", new_user_path, class: "btn btn-success" %>
+  <!-- Botão para Criar Novo Usuário -->
+  <div class="users-create">
+    <%= link_to "Novo Usuário", new_user_path, class: "users-btn create" %>
   </div>
 </div>
