@@ -1,58 +1,54 @@
-<p class="alert alert-success"><%= notice %></p>
-
 <% content_for :title, "Sectors" %>
 
 <div class="container mt-4">
-  <h1 class="mb-4 text-center">Setores</h1>
+  <h1 class="units-title">Setores</h1>
 
   <!-- Barra de Pesquisa -->
-  <div class="mb-4">
-    <%= form_with url: sectors_path, method: :get, local: true, class: "d-flex gap-2" do |form| %>
-      <%= form.text_field :search, placeholder: "Pesquisar por nome", value: params[:search], class: "form-control w-50" %>
-      <%= form.submit "Pesquisar", class: "btn btn-primary" %>
+  <div class="units-search">
+    <%= form_with url: sectors_path, method: :get, local: true, class: "d-flex gap-2 w-100" do |form| %>
+      <%= form.text_field :search, placeholder: "Pesquisar por nome", value: params[:search], class: "form-control units-search-input" %>
+      <%= form.submit "Pesquisar", class: "units-search-btn" %>
     <% end %>
   </div>
 
-  <!-- Filtros (Geral, Ativos, Inativos) -->
-  <ul class="nav nav-pills justify-content-center mb-4">
-    <li class="nav-item">
-      <%= link_to "Geral", sectors_path(status: nil, search: params[:search]), class: "nav-link #{'active' if params[:status].blank?}" %>
-    </li>
-    <li class="nav-item">
-      <%= link_to "Ativos", sectors_path(status: "active", search: params[:search]), class: "nav-link #{'active' if params[:status] == 'active'}" %>
-    </li>
-    <li class="nav-item">
-      <%= link_to "Inativos", sectors_path(status: "inactive", search: params[:search]), class: "nav-link #{'active' if params[:status] == 'inactive'}" %>
-    </li>
+  <!-- Filtros -->
+  <ul class="units-filters">
+    <li><%= link_to "Geral", sectors_path(status: nil, search: params[:search]), class: "units-filter-link #{'active' if params[:status].blank?}" %></li>
+    <li><%= link_to "Ativos", sectors_path(status: "active", search: params[:search]), class: "units-filter-link #{'active' if params[:status] == 'active'}" %></li>
+    <li><%= link_to "Inativos", sectors_path(status: "inactive", search: params[:search]), class: "units-filter-link #{'active' if params[:status] == 'inactive'}" %></li>
   </ul>
 
   <!-- Lista de Setores -->
-  <div class="row">
+  <div class="units-list">
     <% if @sectors.any? %>
       <% @sectors.each do |sector| %>
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title"><%= sector.name %></h5>
-              <p class="card-text">
-                <strong>Status:</strong> <%= sector.active? ? "Ativo" : "Inativo" %>
-              </p>
-              <div class="d-flex justify-content-between">
-                <%= link_to "Ver Detalhes", sector, class: "btn btn-outline-primary btn-sm" %>
-                <%= link_to "Editar", edit_sector_path(sector), class: "btn btn-warning btn-sm" %>
-              </div>
-            </div>
+        <div class="units-card">
+          <h5 class="units-name"><%= sector.name %></h5>
+          <p class="units-status">
+            <i class="bi bi-check-circle"></i> <strong>Status:</strong>
+            <span class="<%= sector.active? ? 'active' : 'inactive' %>">
+              <%= sector.active? ? "Ativo" : "Inativo" %>
+            </span>
+          </p>
+          <div class="units-card-footer">
+            <%= link_to sector, class: "units-btn view" do %>
+              Ver Detalhes
+            <% end %>
+            <%= link_to edit_sector_path(sector), class: "units-btn edit" do %>
+              <i class="bi bi-pencil-square"></i>
+            <% end %>
           </div>
         </div>
       <% end %>
     <% else %>
-      <p class="text-center text-muted">Nenhum setor encontrada.</p>
+      <p class="text-center text-muted">Nenhum setor encontrado.</p>
     <% end %>
   </div>
 
   <!-- Botão de Novo Setor -->
-  <div class="text-center mt-4">
-    <%= link_to "Novo Setor", new_sector_path, class: "btn btn-success" %>
+  <div class="units-new-btn-container">
+    <%= link_to new_sector_path, class: "units-new-btn" do %>
+      Novo Setor
+    <% end %>
   </div>
 </div>
-
