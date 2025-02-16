@@ -1,0 +1,84 @@
+/* ======== Página de Visitas ======== */
+.visits-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #0d6efd;
+    margin-bottom: 20px;
+  }
+  
+  /* ======== Filtros ======== */
+  .visits-filters {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ======== Tabela ======== */
+  .visits-table {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .table thead th {
+    background-color: #0d6efd !important;
+    color: white !important;
+    text-transform: uppercase;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  /* ======== Status ======== */
+  .badge.bg-success {
+    background-color: #198754 !important;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 5px;
+  }
+  
+  .badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 5px;
+  }
+  
+  /* ======== Botões ======== */
+  .visits-btn {
+    background: #0d6efd;
+    color: white;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  .visits-btn:hover {
+    background: #084298;
+  }
+  
+  /* Botão Nova Visita */
+  .visits-new-btn-container {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .visits-new-btn {
+    background: #198754;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s ease;
+  }
+  
+  .visits-new-btn:hover {
+    background: #146c43;
+    transform: scale(1.05);
+  }
+  

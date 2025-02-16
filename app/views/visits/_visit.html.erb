@@ -1,19 +1,21 @@
-<div id="<%= dom_id visit %>" class="card p-3 shadow-sm">
+<div id="<%= dom_id visit %>" class="card p-4 shadow-sm visit-card">
   <div class="card-body">
-    <h4 class="card-title text-primary"><%= visit.visitor.name %></h4>
+    <h4 class="card-title text-primary">
+      <i class="bi bi-person-fill"></i> <%= visit.visitor.name %>
+    </h4>
 
     <ul class="list-group list-group-flush">
-      <li class="list-group-item"><strong>Setor:</strong> <%= visit.sector.name %></li>
-      <li class="list-group-item"><strong>Funcionário Responsável:</strong> <%= visit.employee.name %></li>
-      <li class="list-group-item"><strong>Data da Visita:</strong> <%= visit.visit_time.strftime("%d/%m/%Y %H:%M") %></li>
-      <li class="list-group-item"><strong>Unidade:</strong> <%= visit.unit.name %></li>
+      <li class="list-group-item"><i class="bi bi-building"></i> <strong>Setor:</strong> <%= visit.sector.name %></li>
+      <li class="list-group-item"><i class="bi bi-person-badge"></i> <strong>Funcionário Responsável:</strong> <%= visit.employee.name %></li>
+      <li class="list-group-item"><i class="bi bi-calendar-event"></i> <strong>Data da Visita:</strong> <%= visit.visit_time.strftime("%d/%m/%Y %H:%M") %></li>
+      <li class="list-group-item"><i class="bi bi-geo-alt"></i> <strong>Unidade:</strong> <%= visit.unit.name %></li>
     </ul>
 
     <div class="mt-3 text-center">
       <% if visit.confirmed_at.present? %>
-        <span class="badge bg-success">✅ Confirmada em <%= visit.confirmed_at.strftime("%d/%m/%Y %H:%M") %></span>
+        <span class="badge bg-success"><i class="bi bi-check-circle"></i> Confirmada em <%= visit.confirmed_at.strftime("%d/%m/%Y %H:%M") %></span>
       <% else %>
-        <span class="badge bg-warning">⏳ Pendente</span>
+        <span class="badge bg-warning"><i class="bi bi-hourglass-split"></i> Pendente</span>
       <% end %>
     </div>
   </div>

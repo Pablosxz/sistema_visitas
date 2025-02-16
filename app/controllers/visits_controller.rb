@@ -33,6 +33,7 @@ class VisitsController < ApplicationController
     # Carregar setores e funcionários para o filtro
     @sectors = Sector.all
     @employees = Employee.all
+    @employees = @employees.where(sector_id: params[:sector]) if params[:sector].present?
   end
 
   # GET /visits/1 or /visits/1.json
