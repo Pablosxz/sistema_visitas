@@ -51,7 +51,7 @@
       </div>
       
       <div class="employees-card-footer">
-        <%= link_to "Detalhes", employee, class: "btn employees-btn" %>
+        <%= link_to "Detalhes", employee, class: "employees-btn" %>
       </div>
     </div>
   <% end %>
@@ -59,7 +59,7 @@
 
 <% if can?(:create, Employee) %>
   <div class="text-center">
-    <%= link_to "Novo Funcionário", new_employee_path, class: "btn employees-add-btn" %>
+    <%= link_to "Novo Funcionário", new_employee_path, class: "employees-add-btn" %>
   </div>
 <% end %>
 </div>
