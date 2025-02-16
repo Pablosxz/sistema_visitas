@@ -1,0 +1,104 @@
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: #1e3a8a; /* Azul escuro para contraste */
+  color: white;
+  padding: 20px;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+  text-align: center; /* Centraliza o título */
+  padding: 20px 10px;
+  background: #1e3a8a; /* Azul escuro */
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  border-bottom: 2px solid #3b82f6; /* Linha sutil para separar do conteúdo */
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Links da sidebar */
+.sidebar .nav-link {
+  display: block;
+  color: white;
+  padding: 12px;
+  border-radius: 5px;
+  transition: background 0.3s;
+  text-align: center;
+}
+
+.sidebar .nav-link:hover {
+  background: #3b82f6; /* Azul mais claro ao passar o mouse */
+  text-decoration: none;
+}
+
+/* Melhor espaçamento */
+.sidebar .nav-item {
+  margin-bottom: 10px;
+}
+
+/* Ajustando o "Bem-vindo" */
+.sidebar .nav-text {
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+}
+
+/* Ajuste do botão de logout */
+.sidebar .btn-danger {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Ajuste para o conteúdo principal */
+.content {
+  margin-left: 250px;
+  padding: 20px;
+}
+
+/* Ajuste principal para que o conteúdo respeite a sidebar */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc; /* Fundo branco-azulado para ficar agradável */
+}
+
+.body-container {
+  flex-grow: 1;
+  padding: 30px;
+  margin-left: 250px;
+  background: #f1f5f9; /* Fundo claro para leitura */
+  min-height: 100vh;
+}
+
+/* Responsivo: Sidebar menor em telas pequenas */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+  .body-container {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .body-container {
+    margin-left: 0;
+    width: 100%;
+  }
+}

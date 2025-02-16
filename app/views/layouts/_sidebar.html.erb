@@ -1,0 +1,65 @@
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h3>VisitControl</h3>
+  </div>
+
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <%= link_to root_path, class: "nav-link" do %>
+        <i class="fas fa-home"></i> Início
+      <% end %>
+    </li>
+
+    <% if user_signed_in? %>
+      <% if current_user.admin? %>
+        <li class="nav-item">
+          <%= link_to users_path, class: "nav-link" do %>
+            <i class="fas fa-user-cog"></i> Usuários
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to employees_path, class: "nav-link" do %>
+            <i class="fas fa-users"></i> Funcionários
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to units_path, class: "nav-link" do %>
+            <i class="fas fa-building"></i> Unidades
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to sectors_path, class: "nav-link" do %>
+            <i class="fas fa-sitemap"></i> Setores
+          <% end %>
+        </li>
+      <% end %>
+
+      <% if current_user.attendant? || current_user.employee? %>
+        <li class="nav-item">
+          <%= link_to visits_path, class: "nav-link" do %>
+            <i class="fas fa-calendar-check"></i> Visitas
+          <% end %>
+        </li>
+        <% if current_user.attendant? %>
+          <li class="nav-item">
+            <%= link_to visitors_path, class: "nav-link" do %>
+              <i class="fas fa-id-badge"></i> Visitantes
+            <% end %>
+          </li>
+        <% end %>
+      <% end %>
+
+      <li class="nav-item user-info">
+        <span><i class="fas fa-user"></i> Olá, <%= current_user.email.split('@').first %></span>
+      </li>
+
+      <li class="nav-item">
+        <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger w-100" %>
+      </li>
+    <% else %>
+      <li class="nav-item">
+        <%= link_to "Login", new_user_session_path, class: "btn btn-primary w-100" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
