@@ -70,7 +70,7 @@ Além das funcionalidades principais descritas acima, foram implementadas as seg
 ### 2️⃣ Instalação
 ```bash
 # Clone este repositório
-git clone https://github.com/Pablosxz/sistema_visitas
+git clone https://github.com/Pablosxz/sistema_visitas.git
 cd sistema_visitas
 
 # Instale as dependências
