@@ -65,11 +65,16 @@ employee1 = Employee.create!(name: "Alice", sector: sector1, user: employee_user
 employee2 = Employee.create!(name: "Bob", sector: sector3, user: employee_user2)
 employee3 = Employee.create!(name: "Charlie", sector: sector5)
 
+# Caminho das imagem dos visitantes exemplo
+image_path1 = Rails.root.join("public/uploads/visitor/photo/1/john.jpg")
+image_path2 = Rails.root.join("public/uploads/visitor/photo/2/jane.jpeg")
+image_path3 = Rails.root.join("public/uploads/visitor/photo/3/paulo.jpeg")
+
 
 # Criando visitantes
-visitor1 = Visitor.create!(cpf: "12345678900", name: "John Doe", rg: "1234567", phone: "84987654321")
-visitor2 = Visitor.create!(cpf: "98765432100", name: "Jane Doe", rg: "7654321", phone: "84912345678")
-visitor3 = Visitor.create!(cpf: "12345678901", name: "Paulo Henrique", rg: "1234568", phone: "84987654320")
+visitor1 = Visitor.create!(cpf: "12345678900", name: "John Doe", rg: "1234567", phone: "84987654321", photo: File.open(image_path1))
+visitor2 = Visitor.create!(cpf: "98765432100", name: "Jane Doe", rg: "7654321", phone: "84912345678", photo: File.open(image_path2))
+visitor3 = Visitor.create!(cpf: "12345678901", name: "Paulo Henrique", rg: "1234568", phone: "84987654320", photo: File.open(image_path3))
 
 # Criando visitas
 Visit.create!(visitor: visitor1, sector: sector1, employee: employee1, unit: unit1, visit_time: Time.now)

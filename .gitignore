@@ -33,4 +33,3 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 public/uploads/tmp/*
-public/uploads/visitor/photo/*
