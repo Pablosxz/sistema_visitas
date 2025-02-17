@@ -1,15 +1,15 @@
 # Criando um usuário administrador
 admin = User.create!(
   email: "admin@example.com",
-  password: "password",
-  password_confirmation: "password",
+  password: "admin123",
+  password_confirmation: "admin123",
   role: :admin
 )
 
 employee_user1 = User.create!(
-  email: "funcionario@gmail.com",
-  password: "funcionario",
-  password_confirmation: "funcionario",
+  email: "funcionario@example.com",
+  password: "funcionario123",
+  password_confirmation: "funcionario123",
   role: :employee
 )
 
@@ -34,9 +34,9 @@ unit3 = Unit.create!(name: "Unidade C")
 
 # Criando atendentes para cada unidade
 attendant1 = User.create!(
-  email: "atendente1@gmail.com",
-  password: "atendente1",
-  password_confirmation: "atendente1",
+  email: "atendente@example.com",
+  password: "atendente123",
+  password_confirmation: "atendente123",
   role: :attendant,
   unit: unit1
 )

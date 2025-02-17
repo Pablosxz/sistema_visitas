@@ -86,3 +86,27 @@ rails server
 ```
 
 O sistema estará disponível em: `http://localhost:3000`
+
+Uma boa forma de adicionar informações sobre os logins padrão de admin, atendente e funcionário é destacando-as de maneira clara e concisa, tanto na seção de "Como Executar o Projeto" quanto criando uma seção separada de "Credenciais Padrão" no README.
+
+Aqui está uma sugestão para incluir essas informações:
+
+---
+
+## 🛠️ **Credenciais Padrão**
+
+Após a instalação e execução do sistema, você pode usar as seguintes credenciais para acessar as diferentes funções do sistema:
+
+- **Administrador:**
+  - **Email:** admin@example.com
+  - **Senha:** admin123
+  
+- **Atendente:**
+  - **Email:** atendente@example.com
+  - **Senha:** atendente123
+  
+- **Funcionário:**
+  - **Email:** funcionario@example.com
+  - **Senha:** funcionario123
+
+Esses usuários são criados automaticamente durante a execução do comando `rails db:seed`.
