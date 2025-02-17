@@ -7,6 +7,73 @@ pt-BR:
         restrict_dependent_destroy:
           has_one: Não é possível excluir o registro pois existe um %{record} dependente
           has_many: Não é possível excluir o registro pois existem %{record} dependentes
+        
+        # Mensagens para o modelo User
+        user:
+          name:
+            blank: "não pode ficar em branco"
+          email:
+            blank: "não pode ficar em branco"
+            taken: "já está em uso"
+          password:
+            blank: "não pode ficar em branco"
+            too_short: "deve ter pelo menos 6 caracteres"
+
+        # Mensagens para o modelo Visit
+        visit:
+          visit_time:
+            blank: "não pode ficar em branco"
+          visitor_id:
+            blank: "não pode ficar em branco"
+          sector_id:
+            blank: "não pode ficar em branco"
+          unit_id:
+            blank: "não pode ficar em branco"
+          employee_id:
+            blank: "não pode ficar em branco"
+
+        # Mensagens para o modelo Visitor
+        visitor:
+          cpf:
+            blank: "não pode ficar em branco"
+            taken: "já está em uso"
+            wrong_length: "deve conter 11 dígitos"
+            format: "deve conter apenas números"
+          name:
+            blank: "não pode ficar em branco"
+            too_short: "deve ter no mínimo 3 caracteres"
+            too_long: "deve ter no máximo 100 caracteres"
+          rg:
+            blank: "não pode ficar em branco"
+            taken: "já está em uso"
+            format: "deve conter apenas números"
+          phone:
+            blank: "não pode ficar em branco"
+            format: "deve ter 10 ou 11 dígitos"
+          photo:
+            blank: "não pode ficar em branco"
+
+        # Mensagens para o modelo Unit
+        unit:
+          name:
+            blank: "não pode ficar em branco"
+          sector_id:
+            blank: "não pode ficar em branco"
+
+        # Mensagens para o modelo Sector
+        sector:
+          name:
+            blank: "não pode ficar em branco"
+          unit_id:
+            blank: "não pode ficar em branco"
+
+        # Mensagens para o modelo Employee
+        employee:
+          name:
+            blank: "não pode ficar em branco"
+          photo:
+            blank: "não pode ficar em branco"
+
   date:
     abbr_day_names:
     - dom
