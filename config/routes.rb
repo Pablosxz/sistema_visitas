@@ -7,19 +7,19 @@ Rails.application.routes.draw do
   get "users/destroy"
 
   # Rota para buscar funcionários por setor
-  get '/sectors/:sector_id/employees', to: 'sectors#employees'
-  
-  
+  get "/sectors/:sector_id/employees", to: "sectors#employees"
+
+
   authenticated :user do
-    root 'visits#index', as: :authenticated_root
+    root "visits#index", as: :authenticated_root
   end
-  
+
   devise_scope :user do
-    root to: 'devise/sessions#new' # Página de login como root padrão
+    root to: "devise/sessions#new" # Página de login como root padrão
   end
 
   # Página de busca de visitantes
-  get '/visitors/search', to: 'visitors#search'
+  get "/visitors/search", to: "visitors#search"
 
   # Permite a confirmação de visitas apenas por funcionários (Patch)
   resources :visits do
@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sectors do 
+  resources :sectors do
     member do
       patch :deactivate
       patch :activate
@@ -59,9 +59,8 @@ Rails.application.routes.draw do
       patch :activate
     end
   end
-  
+
   resources :users, except: :show  # CRUD de usuários para admin
 
   get "up" => "rails/health#show", as: :rails_health_check
-
 end

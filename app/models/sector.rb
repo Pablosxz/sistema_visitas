@@ -6,7 +6,7 @@ class Sector < ApplicationRecord
   # Escopos para filtrar unidades ativas e inativas
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
-  
+
   validates :name, presence: true
   validates :unit_id, presence: true
 

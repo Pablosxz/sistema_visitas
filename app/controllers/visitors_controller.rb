@@ -2,7 +2,7 @@ class VisitorsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_visitor, only: %i[ show edit update destroy ]
   load_and_authorize_resource
-  
+
   # GET /visitors or /visitors.json
   def index
     @visitors = Visitor.all
@@ -72,7 +72,7 @@ class VisitorsController < ApplicationController
     end
   end
 
-   # PATCH /visitors/1/deactivate
+  # PATCH /visitors/1/deactivate
   def deactivate
     @visitor = Visitor.find(params[:id])
     @visitor.deactivate!
@@ -109,7 +109,7 @@ class VisitorsController < ApplicationController
           name: visitor.name,
           rg: visitor.rg,
           phone: visitor.phone,
-          active: false,
+          active: false
         }
       end
     else

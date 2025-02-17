@@ -14,11 +14,11 @@ class Visitor < ApplicationRecord
     # Monta o uploader da foto
     mount_uploader :photo, PhotoUploader
 
-     # Método para desativar visitante
+    # Método para desativar visitante
     def deactivate!
         update_column(:active, false)
     end
-    
+
     # Método para ativar visitante
     def activate!
         update_column(:active, true)

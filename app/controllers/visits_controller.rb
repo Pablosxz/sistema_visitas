@@ -2,7 +2,7 @@ class VisitsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_visit, only: %i[ show edit update destroy ]
   load_and_authorize_resource
-  
+
   # Confirmar visita
   def confirm
     if current_user.employee? && @visit.employee == current_user.employee
@@ -42,7 +42,7 @@ class VisitsController < ApplicationController
 
   # GET /visits/new
   def new
-    @visit = Visit.new(visit_time: Time.current) # Define a data/hora 
+    @visit = Visit.new(visit_time: Time.current) # Define a data/hora
     @sectors = Sector.where(unit_id: current_user.unit_id, active: true) # Apenas setores da unidade do atendente que estejam ativos
   end
 

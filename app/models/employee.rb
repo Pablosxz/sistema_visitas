@@ -42,7 +42,7 @@ class Employee < ApplicationRecord
   def deactivate!
     update(active: false)
   end
-  
+
   # Método para ativar funcionário
   def activate!
     update(active: true)

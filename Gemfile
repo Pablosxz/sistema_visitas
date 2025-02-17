@@ -38,11 +38,14 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # gem de autenticação
-gem 'devise'
+gem "devise"
 # gem de autorização
-gem 'cancancan'
+gem "cancancan"
 # gem de upload de arquivos
-gem 'carrierwave'
+gem "carrierwave"
+# gem de analise de código
+gem "rubocop", require: false
+gem "rubocop-rails", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -62,4 +65,3 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
-

@@ -2,7 +2,7 @@ class EmployeesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_employee, only: %i[ show edit update destroy ]
   load_and_authorize_resource
-  
+
   # Método para desativar o funcionário
   def deactivate
     @employee = Employee.find(params[:id])
@@ -59,7 +59,7 @@ class EmployeesController < ApplicationController
     end
 
     @employee.user.role = 2 # Define o papel do usuário como funcionário
-    
+
     respond_to do |format|
       if @employee.save
         format.html { redirect_to @employee, notice: "Employee was successfully created." }
@@ -102,7 +102,7 @@ class EmployeesController < ApplicationController
 
     def employee_params
       params.expect(employee: [ :name, :sector_id, :user_id, :active,
-      user_attributes: [:id, :email, :password, :password_confirmation, :role] # Permite atributos aninhados para o usuário
+      user_attributes: [ :id, :email, :password, :password_confirmation, :role ] # Permite atributos aninhados para o usuário
     ])
     end
 end

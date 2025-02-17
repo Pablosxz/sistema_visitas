@@ -14,5 +14,4 @@ class ApplicationController < ActionController::Base
       root_path # Página padrão
     end
   end
-
 end

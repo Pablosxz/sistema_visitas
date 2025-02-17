@@ -2,7 +2,7 @@ class SectorsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_sector, only: %i[ show edit update destroy ]
   load_and_authorize_resource
-  
+
   # GET /sectors or /sectors.json
   def index
     @sectors = Sector.all
@@ -90,7 +90,7 @@ class SectorsController < ApplicationController
 
     render json: employees.select(:id, :name) # Retorna apenas o ID e o nome dos funcionários
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sector
