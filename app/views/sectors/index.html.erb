@@ -24,6 +24,9 @@
       <% @sectors.each do |sector| %>
         <div class="units-card">
           <h5 class="units-name"><%= sector.name %></h5>
+          <p class="sector-unit">
+            <i class="bi bi-people-fill"></i> <strong>Unidade:</strong> <%= sector.unit.name if sector.unit %>
+          </p>
           <p class="units-status">
             <i class="bi bi-check-circle"></i> <strong>Status:</strong>
             <span class="<%= sector.active? ? 'active' : 'inactive' %>">
