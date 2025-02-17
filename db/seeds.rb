@@ -20,6 +20,13 @@ employee_user2 = User.create!(
   role: :employee
 )
 
+employee_user3 = User.create!(
+  email: "funcionario2@gmail.com",
+  password: "funcionario2",
+  password_confirmation: "funcionario2",
+  role: :employee
+)
+
 # Criando unidades
 unit1 = Unit.create!(name: "Unidade A")
 unit2 = Unit.create!(name: "Unidade B")
@@ -63,7 +70,7 @@ sector6 = Sector.create!(name: "Marketing", unit: unit3)
 # Criando funcionários (vinculados a usuários do tipo employee)
 employee1 = Employee.create!(name: "Alice", sector: sector1, user: employee_user1)
 employee2 = Employee.create!(name: "Bob", sector: sector3, user: employee_user2)
-employee3 = Employee.create!(name: "Charlie", sector: sector5)
+employee3 = Employee.create!(name: "Charlie", sector: sector5, user: employee_user3)
 
 # Caminho das imagem dos visitantes exemplo
 image_path1 = Rails.root.join("public/uploads/visitor/photo/1/john.jpg")

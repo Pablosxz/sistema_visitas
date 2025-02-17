@@ -30,7 +30,7 @@ class EmployeesController < ApplicationController
     @sectors = Sector.all # Para preencher o dropdown de setores
 
     # Aplicando filtros
-    @employees = @employees.where("name ILIKE ?", "%#{params[:name]}%") if params[:name].present?
+    @employees = @employees.where("employees.name ILIKE ?", "%#{params[:name]}%") if params[:name].present?
     @employees = @employees.where(active: params[:active] == "true") if params[:active].present?
     @employees = @employees.joins(:sector).where(sectors: { unit_id: params[:unit_id] }) if params[:unit_id].present?
     @employees = @employees.where(sector_id: params[:sector_id]) if params[:sector_id].present?
