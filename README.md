@@ -1,24 +1,88 @@
-# README
+# Sistema de Registro de Visitantes (VisitControl)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 📌 Sobre o Projeto
 
-Things you may want to cover:
+O **Sistema de Registro de Visitantes** tem como objetivo armazenar e gerenciar as visitas realizadas nas unidades de uma instituição. Cada unidade pode registrar apenas as visitas realizadas em seu local, mas compartilham um cadastro centralizado de visitantes para agilizar o processo de check-in.
 
-* Ruby version
+## 🚀 Funcionalidades
 
-* System dependencies
+### 🔹 Cadastro de Visitantes
+- Registro de visitantes com CPF, nome, RG, telefone e foto (via webcam).
+- Auto-preenchimento dos dados ao inserir um CPF já cadastrado.
+- Atribuição de setor e funcionário para a visita.
+- Registro automático de data e hora da visita.
 
-* Configuration
+### 🔹 Controle de Acesso
+- **Administrador:** Pode administrar unidades, setores, funcionários e usuários.
+- **Atendente:** Responsável pelo cadastro de visitantes e registro de visitas de sua unidade.
+- **Funcionário:** Pode visualizar visitantes aguardando atendimento e notificar a realização da visita.
 
-* Database creation
+### 🔹 Segurança e Permissões
+- Utilização da **gem Devise** para autenticação de usuários.
+- Controle de permissões via **gem Cancancan**.
+- Upload seguro de fotos via **gem CarrierWave**.
 
-* Database initialization
+### 🔹 Banco de Dados
+- Armazenamento seguro e eficiente com **PostgreSQL**.
 
-* How to run the test suite
+## 📖 Tecnologias Utilizadas
 
-* Services (job queues, cache servers, search engines, etc.)
+O projeto foi desenvolvido utilizando **Ruby on Rails**, seguindo o padrão de arquitetura **MVC**.
 
-* Deployment instructions
+- **Linguagem:** Ruby
+- **Framework:** Ruby on Rails
+- **Autenticação:** Devise
+- **Autorização:** Cancancan
+- **Upload de Arquivos:** CarrierWave
+- **Banco de Dados:** PostgreSQL
 
-* ...
+## 🔥 Funcionalidades Adicionais
+
+Além das funcionalidades principais descritas acima, foram implementadas as seguintes melhorias:
+
+- **Sistema de ativação e desativação de entidades:**: Foi adicionado um campo "Active" para unidades, setores, funcionários e visitantes, permitindo a desativação sem a remoção dos dados, garantindo maior segurança e integridade do histórico de visitas.
+- **Mecanismo de desativação em cascata**: Caso uma unidade seja desativada, todos os seus setores e funcionários também são automaticamente desativados, incluindo a remoção do acesso dos funcionários ao sistema.
+- **Cascata de desativação**: Exemplo: Ao desativar uma unidade, todos os setores desta são desativados também e todos os funcionários de cada setor são desativados perdendo seu usuário do sistema por consequência.
+- **Filtros de pesquisa avançados**: Implementação de opções de busca refinadas em todas as páginas, permitindo filtrar registros por status ativo/inativo, setor, entre outros critérios.
+- **Interface responsiva**:  sistema foi projetado para ser totalmente adaptável a dispositivos móveis, proporcionando uma experiência fluida em diferentes tamanhos de tela.
+
+
+## 📸 Capturas de Tela
+
+| Tela | Imagem |
+|------|--------|
+| Tela de Login | <img src="assets/login.png" width="500"> |
+| Dashboard de Visitantes | <img src="assets/visitantes.png" width="500"> |
+| Dashboard de Visitas | <img src="assets/visitas.png" width="500"> |
+| Dashboard de Usuários | <img src="assets/usuarios.png" width="500"> |
+| Dashboard de Funcionários | <img src="assets/funcionarios.png" width="500"> |
+| Dashboard de Unidades | <img src="assets/unidades.png" width="500"> |
+| Dashboard de Setores | <img src="assets/setores.png" width="500"> |
+
+
+## ⚡ Como Executar o Projeto
+
+### 1️⃣ Pré-requisitos
+- Ruby instalado (versão recomendada: `3.3.7`)
+- Rails instalado (`gem install rails`)
+- PostgreSQL configurado
+
+### 2️⃣ Instalação
+```bash
+# Clone este repositório
+git clone https://github.com/Pablosxz/sistema_visitas
+cd sistema_visitas
+
+# Instale as dependências
+bundle install
+
+# Configure o banco de dados
+rails db:create
+rails db:migrate
+rails db:seed # Necessário para adicionar o usuário admin padrão e outros exemplos
+
+# Inicie o servidor
+rails server
+```
+
+O sistema estará disponível em: `http://localhost:3000`
