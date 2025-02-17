@@ -18,12 +18,12 @@
 
       <div class="col-lg-3 col-md-6">
         <%= form.label :unit_id, "Unidade", class: "form-label" %>
-        <%= form.select :unit_id, options_from_collection_for_select(@units.active, :id, :name, params[:unit_id]), { include_blank: "Todas" }, class: "form-select" %>
+        <%= form.select :unit_id, options_from_collection_for_select(@units.active, :id, :name, params[:unit_id]), { include_blank: "Todas" }, class: "form-select", id: "unit_select" %>
       </div>
 
       <div class="col-lg-3 col-md-6">
         <%= form.label :sector_id, "Setor", class: "form-label" %>
-        <%= form.select :sector_id, options_from_collection_for_select(@sectors.active, :id, :name, params[:sector_id]), { include_blank: "Todos" }, class: "form-select" %>
+        <%= form.select :sector_id, options_from_collection_for_select(@sectors.active, :id, :name, params[:sector_id]), { include_blank: "Todos" }, class: "form-select", id: "sector_select", disabled: params[:unit_id].blank? %>
       </div>
 
       <div class="col-lg-1 d-flex align-items-end">

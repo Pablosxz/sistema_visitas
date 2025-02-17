@@ -84,6 +84,14 @@ class UnitsController < ApplicationController
     redirect_to units_path, notice: "Unidade ativada com sucesso."
   end
 
+  # filtra os setores de uma unidade
+  def sectors
+    unit = Unit.find(params[:id])
+    sectors = unit.sectors.active
+
+    render json: sectors.select(:id, :name)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_unit

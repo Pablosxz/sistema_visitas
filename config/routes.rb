@@ -55,6 +55,7 @@ Rails.application.routes.draw do
 
   resources :units do
     member do
+      get :sectors
       patch :deactivate
       patch :activate
     end
