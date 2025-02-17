@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const sectorId = this.value;
   
       if (sectorId) {
+        employeeSelect.disabled = false;
         // Faz uma requisição AJAX para buscar os funcionários do setor selecionado
         fetch(`/sectors/${sectorId}/employees`)
           .then(response => response.json())

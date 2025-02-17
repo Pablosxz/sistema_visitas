@@ -31,7 +31,7 @@ class VisitsController < ApplicationController
     end
 
     # Carregar setores e funcionários para o filtro
-    @sectors = Sector.all
+    @sectors = Sector.where(unit_id: current_user.unit_id, active: true)
     @employees = Employee.all
     @employees = @employees.where(sector_id: params[:sector]) if params[:sector].present?
   end

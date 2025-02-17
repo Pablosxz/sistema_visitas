@@ -14,13 +14,13 @@
       <div class="col-md-3">
         <%= form.label :sector, "Setor", class: "form-label" %>
         <%= form.select :sector, options_from_collection_for_select(@sectors, :id, :name, params[:sector]), 
-                        { include_blank: "Todos" }, class: "form-select", disabled: current_user.role == "employee" %>
+                        { include_blank: "Todos" }, class: "form-select", id: "sector_select", disabled: current_user.role == "employee" %>
       </div>
 
       <div class="col-md-3">
         <%= form.label :employee, "Funcionário", class: "form-label" %>
         <%= form.select :employee, options_from_collection_for_select(@employees, :id, :name, params[:employee]), 
-                        { include_blank: "Todos" }, class: "form-select", disabled: current_user.role == "employee" %>
+                        { include_blank: "Todos" }, class: "form-select", id: "employee_select", disabled: current_user.role == "employee" || params[:sector].blank? %>
       </div>
 
       <div class="col-md-2">
