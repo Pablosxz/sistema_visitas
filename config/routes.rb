@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   get "users/edit"
   get "users/update"
   get "users/destroy"
+
+  # Rota para buscar funcionários por setor
+  get '/sectors/:sector_id/employees', to: 'sectors#employees'
   
   
   authenticated :user do

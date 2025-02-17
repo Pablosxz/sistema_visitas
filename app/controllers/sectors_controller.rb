@@ -83,6 +83,13 @@ class SectorsController < ApplicationController
     @sector.activate!
     redirect_to sectors_path, notice: "Sector was successfully activated."
   end
+
+  def employees
+    sector = Sector.find(params[:sector_id])
+    employees = sector.employees.active # Filtra apenas funcionários ativos
+
+    render json: employees.select(:id, :name) # Retorna apenas o ID e o nome dos funcionários
+  end
   
   private
     # Use callbacks to share common setup or constraints between actions.

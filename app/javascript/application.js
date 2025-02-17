@@ -3,6 +3,7 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import 'select2';
 import 'select2/dist/css/select2.css';
+//= require visits_form
 
 // app/javascript/packs/application.js (ou em um arquivo JavaScript específico)
 
