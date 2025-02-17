@@ -1,8 +1,8 @@
 # Criando um usuário administrador
 admin = User.create!(
-  email: "lucasrn03@gmail.com",
-  password: "admin123",
-  password_confirmation: "admin123",
+  email: "admin@example.com",
+  password: "password",
+  password_confirmation: "password",
   role: :admin
 )
 
