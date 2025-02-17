@@ -181,13 +181,13 @@
   .employees-add-btn {
     background: #198754;
     color: white;
-    padding: 12px 20px;
-    font-size: 16px;
+    padding: 10px 15px;
+    font-size: 14px;
     font-weight: bold;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 7px;
     transition: background 0.3s ease, transform 0.2s ease;
-    margin-top: 20px;
+    margin-top: 40px;
     display: inline-block;
   }
   

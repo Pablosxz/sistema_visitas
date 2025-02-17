@@ -119,13 +119,12 @@
   .users-btn:hover {
     opacity: 0.8;
   }
-  
+
   .users-btn.create {
     background: #198754;
     color: white;
     padding: 10px 20px;
     text-align: center;
-    display: block;
     width: fit-content;
     margin: 20px auto;
   }

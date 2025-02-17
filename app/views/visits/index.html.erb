@@ -14,13 +14,13 @@
       <div class="col-md-3">
         <%= form.label :sector, "Setor", class: "form-label" %>
         <%= form.select :sector, options_from_collection_for_select(@sectors, :id, :name, params[:sector]), 
-                        { include_blank: "Todos" }, class: "form-select" %>
+                        { include_blank: "Todos" }, class: "form-select", disabled: current_user.role == "employee" %>
       </div>
 
       <div class="col-md-3">
         <%= form.label :employee, "Funcionário", class: "form-label" %>
         <%= form.select :employee, options_from_collection_for_select(@employees, :id, :name, params[:employee]), 
-                        { include_blank: "Todos" }, class: "form-select" %>
+                        { include_blank: "Todos" }, class: "form-select", disabled: current_user.role == "employee" %>
       </div>
 
       <div class="col-md-2">
@@ -60,7 +60,7 @@
                 <% if visit.confirmed_at.present? %>
                   <span class="badge bg-success">✅ Confirmada em <%= visit.confirmed_at.strftime("%d/%m/%Y %H:%M") %></span>
                 <% elsif can?(:confirm, visit) %>
-                  <%= button_to "✔️ Confirmar", confirm_visit_path(visit), method: :patch, class: "btn btn-success btn-sm" %>
+                  <%= button_to "Confirmar", confirm_visit_path(visit), method: :patch, class: "btn btn-success btn-sm" %>
                 <% else %>
                   <span class="badge bg-warning text-dark">⏳ Pendente</span>
                 <% end %>

@@ -55,7 +55,8 @@
   </div>
 
   <!-- Botão para Criar Novo Usuário -->
-  <div class="users-create">
-    <%= link_to "Novo Usuário", new_user_path, class: "users-btn create" %>
+  <div class="text-center mt-4">
+    <%= link_to new_user_path, class: "btn btn-success" do %>
+      <i class="bi bi-person-plus"></i> Novo Usuário
+    <% end %>
   </div>
-</div>

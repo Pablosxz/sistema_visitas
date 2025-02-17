@@ -59,7 +59,9 @@
 
 <% if can?(:create, Employee) %>
   <div class="text-center">
-    <%= link_to "Novo Funcionário", new_employee_path, class: "employees-add-btn" %>
+    <%= link_to new_employee_path, class: "employees-add-btn" do %>
+      <i class="bi bi-person-plus"></i> Novo Funcionário
+    <% end %>
   </div>
 <% end %>
 </div>
