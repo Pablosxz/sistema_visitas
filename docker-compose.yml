@@ -10,7 +10,7 @@ services:
 
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && rails db:setup && bundle exec rails s -b '0.0.0.0'"
     volumes:
       - .:/app
     ports:
@@ -24,6 +24,6 @@ services:
       DATABASE_PASSWORD: <%= ENV['DATABASE_PASSWORD'] %>
       SECRET_KEY_BASE: <%= ENV['SECRET_KEY_BASE'] %>
       RAILS_SERVE_STATIC_FILES: "true"
-
+    restart: always
 volumes:
   postgres_data:

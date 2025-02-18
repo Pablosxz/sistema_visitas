@@ -4,8 +4,10 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Configura o servidor de assets
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
+  config.assets.compile = true
 
+  config.assets.digest = true
   # Configura o log
   config.log_formatter = ::Logger::Formatter.new
 
@@ -31,10 +33,11 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
-  config.assume_ssl = true
+  # config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+
+  # config.force_ssl = true
 
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
