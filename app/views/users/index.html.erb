@@ -34,8 +34,8 @@
                   <i class="bi bi-pencil-square"></i>
                 <% end %>
 
-                <% if user.role == 'employee' %>
-                  <button class="users-btn delete disabled" disabled title="Funcionários não podem ser excluídos">
+                <% if user.role == 'employee' || user == current_user %>
+                  <button class="users-btn delete disabled" disabled title="Funcionários não podem ser excluídos e nem você mesmo">
                     <i class="bi bi-trash"></i>
                   </button>
                 <% else %>
