@@ -24,13 +24,8 @@ RUN bundle config set without 'development test' && \
 # Copie todo o código da aplicação para o container
 COPY . /app
 
-# Copie as credenciais (se estiver usando credenciais criptografadas)
-COPY config/credentials.yml.enc config/credentials.yml.enc
-COPY config/master.key config/master.key
-
 # Pré-compile os assets
 RUN bundle exec rake assets:precompile RAILS_ENV=production
-
 
 # Exponha a porta 3000 (porta padrão do Rails)
 EXPOSE 3000
