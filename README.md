@@ -51,13 +51,13 @@ Além das funcionalidades principais descritas acima, foram implementadas as seg
 
 | Tela | Imagem |
 |------|--------|
-| Tela de Login | <img src="assets/login.png" width="500"> |
-| Dashboard de Visitantes | <img src="assets/visitantes.png" width="500"> |
-| Dashboard de Visitas | <img src="assets/visitas.png" width="500"> |
-| Dashboard de Usuários | <img src="assets/usuarios.png" width="500"> |
-| Dashboard de Funcionários | <img src="assets/funcionarios.png" width="500"> |
-| Dashboard de Unidades | <img src="assets/unidades.png" width="500"> |
-| Dashboard de Setores | <img src="assets/setores.png" width="500"> |
+| Tela de Login | <img src="images/login.png" width="500"> |
+| Dashboard de Visitantes | <img src="images/visitantes.png" width="500"> |
+| Dashboard de Visitas | <img src="images/visitas.png" width="500"> |
+| Dashboard de Usuários | <img src="images/usuarios.png" width="500"> |
+| Dashboard de Funcionários | <img src="images/funcionarios.png" width="500"> |
+| Dashboard de Unidades | <img src="images/unidades.png" width="500"> |
+| Dashboard de Setores | <img src="images/setores.png" width="500"> |
 
 
 ## ⚡ Como Executar o Projeto

@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: sistema_visitas_production
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: production
+      DATABASE_HOST: db
+      DATABASE_USERNAME: <%= ENV['DATABASE_USER'] %>
+      DATABASE_PASSWORD: <%= ENV['DATABASE_PASSWORD'] %>
+      SECRET_KEY_BASE: <%= ENV['SECRET_KEY_BASE'] %>
+      RAILS_SERVE_STATIC_FILES: "true"
+
+volumes:
+  postgres_data:

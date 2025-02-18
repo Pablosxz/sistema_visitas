@@ -1,62 +1,39 @@
-ARG RUBY_VERSION=3.3.7
-FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
+# Use a imagem oficial do Ruby como base
+FROM ruby:3.2.2
 
+# Instale dependências do sistema
+RUN apt-get update -qq && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+# Defina o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Install base packages
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+# Copie o Gemfile e o Gemfile.lock para o container
+COPY Gemfile Gemfile.lock /app/
 
-# Set production environment
-ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+# Defina o ambiente como produção
+ENV RAILS_ENV=production
 
-FROM base AS build
+# Instale as gems de produção
+RUN bundle config set without 'development test' && \
+    bundle install
 
-# Install packages needed to build gems
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+# Copie todo o código da aplicação para o container
+COPY . /app
 
-# Install application gems
-COPY Gemfile Gemfile.lock ./
-RUN bundle install && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
+# Copie as credenciais (se estiver usando credenciais criptografadas)
+COPY config/credentials.yml.enc config/credentials.yml.enc
+COPY config/master.key config/master.key
 
-# Copy application code
-COPY . .
+# Pré-compile os assets
+RUN bundle exec rake assets:precompile RAILS_ENV=production
 
-# Precompile bootsnap code for faster boot times
-RUN bundle exec bootsnap precompile app/ lib/
 
-# Adjust binfiles to be executable on Linux
-RUN chmod +x bin/* && \
-    sed -i "s/\r$//g" bin/* && \
-    sed -i 's/ruby\.exe$/ruby/' bin/*
+# Exponha a porta 3000 (porta padrão do Rails)
+EXPOSE 3000
 
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
-# Final stage for app image
-FROM base
-
-# Copy built artifacts: gems, application
-COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
-COPY --from=build /rails /rails
-
-# Run and own only the runtime files as a non-root user for security
-RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER 1000:1000
-
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-
-# Start server via Thruster by default, this can be overwritten at runtime
-EXPOSE 80
-CMD ["./bin/thrust", "./bin/rails", "server"]
+# Comando para rodar a aplicação
+CMD ["rails", "server", "-b", "0.0.0.0"]
